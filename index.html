@@ -145,7 +145,7 @@
       font-weight: 700;
     }
 
-    /* Print Media Rules */
+    /* Fast, Non-Hanging Print Media Rules */
     @media print {
       body {
         background: #ffffff !important;
@@ -162,7 +162,7 @@
         box-shadow: none !important;
       }
       @page {
-        size: landscape;
+        size: letter landscape;
         margin: 0.35in;
       }
       body.printing-cert @page {
@@ -571,21 +571,16 @@
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
-              <!-- Marble Background & Realistic Gold-Beige Marble Veining -->
+              <!-- Marble Background & Lightweight Gold-Beige Marble Veining (No slow SVG blur filter) -->
               <div class="cert-marble-layer"></div>
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
-                <defs>
-                  <filter id="marbleBlur" x="-10%" y="-10%" width="120%" height="120%">
-                    <feGaussianBlur stdDeviation="2.2" />
-                  </filter>
-                </defs>
-                <g filter="url(#marbleBlur)" fill="none" stroke-linecap="round">
-                  <path d="M-20,195 C120,180 210,255 340,208 C460,165 530,95 690,125 C820,152 930,98 1080,65" stroke="#dcc796" stroke-width="5.5" opacity="0.48"/>
-                  <path d="M-10,208 C130,192 220,268 350,220 C470,178 540,108 700,138" stroke="#c3a463" stroke-width="2" opacity="0.38"/>
-                  <path d="M90,825 C190,695 270,630 395,612 C510,595 595,505 745,478 C880,454 965,392 1075,338" stroke="#dcc796" stroke-width="6.5" opacity="0.5"/>
-                  <path d="M115,825 C215,700 290,640 412,622 C525,606 610,518 758,490" stroke="#bfa05d" stroke-width="2.2" opacity="0.4"/>
-                  <path d="M-25,510 C95,538 165,625 290,662 C420,700 530,755 675,810" stroke="#e2cfa5" stroke-width="4.8" opacity="0.44"/>
-                  <path d="M430,-10 C475,102 450,200 515,298 C575,385 695,418 810,538 C895,625 975,675 1070,718" stroke="#dfd0ac" stroke-width="4.2" opacity="0.38"/>
+                <g fill="none" stroke-linecap="round">
+                  <path d="M-20,195 C120,180 210,255 340,208 C460,165 530,95 690,125 C820,152 930,98 1080,65" stroke="#dcc796" stroke-width="5.5" opacity="0.34"/>
+                  <path d="M-10,208 C130,192 220,268 350,220 C470,178 540,108 700,138" stroke="#c3a463" stroke-width="2" opacity="0.28"/>
+                  <path d="M90,825 C190,695 270,630 395,612 C510,595 595,505 745,478 C880,454 965,392 1075,338" stroke="#dcc796" stroke-width="6.5" opacity="0.36"/>
+                  <path d="M115,825 C215,700 290,640 412,622 C525,606 610,518 758,490" stroke="#bfa05d" stroke-width="2.2" opacity="0.30"/>
+                  <path d="M-25,510 C95,538 165,625 290,662 C420,700 530,755 675,810" stroke="#e2cfa5" stroke-width="4.8" opacity="0.32"/>
+                  <path d="M430,-10 C475,102 450,200 515,298 C575,385 695,418 810,538 C895,625 975,675 1070,718" stroke="#dfd0ac" stroke-width="4.2" opacity="0.28"/>
                 </g>
               </svg>
 
@@ -1260,7 +1255,7 @@
     }
 
     // =========================================================================
-    // CERTIFICATE STUDIO & BATCH PRINTING
+    // CERTIFICATE STUDIO & FAST NON-HANGING PRINTING
     // =========================================================================
     function populateCertStudentDropdown(list) {
       const select = document.getElementById('cert-student-select');
@@ -1395,6 +1390,12 @@
       reader.readAsDataURL(file);
     }
 
+    function cleanupAfterPrint() {
+      document.body.classList.remove('printing-cert');
+      document.getElementById('cert-print-staging').innerHTML = '';
+    }
+    window.addEventListener('afterprint', cleanupAfterPrint);
+
     function printSingleCertificate() {
       const staging = document.getElementById('cert-print-staging');
       const activeCert = document.getElementById('active-certificate').cloneNode(true);
@@ -1402,11 +1403,9 @@
       staging.appendChild(activeCert);
 
       document.body.classList.add('printing-cert');
-      window.print();
-      setTimeout(() => {
-        document.body.classList.remove('printing-cert');
-        staging.innerHTML = '';
-      }, 300);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => window.print());
+      });
     }
 
     function printAllCertificates() {
@@ -1415,9 +1414,8 @@
         return;
       }
       const staging = document.getElementById('cert-print-staging');
-      staging.innerHTML = '';
-
       const template = document.getElementById('active-certificate');
+      const frag = document.createDocumentFragment();
 
       includedList.forEach((st) => {
         const clone = template.cloneNode(true);
@@ -1428,21 +1426,24 @@
         clone.querySelector('#cert-section').textContent = titleCaseName(st.section);
         clone.querySelector('#cert-average').textContent = formatCertAverage(st.activeAvg);
         clone.querySelector('#cert-adviser-name').textContent = getAdviserForSection(st.section);
-        staging.appendChild(clone);
+        frag.appendChild(clone);
       });
 
+      staging.innerHTML = '';
+      staging.appendChild(frag);
+
       document.body.classList.add('printing-cert');
-      window.print();
-      setTimeout(() => {
-        document.body.classList.remove('printing-cert');
-        staging.innerHTML = '';
-      }, 400);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => window.print());
+      });
     }
 
     function printOfficialSummary() {
-      document.body.classList.remove('printing-cert');
+      cleanupAfterPrint();
       switchTab('printsheet');
-      setTimeout(() => window.print(), 100);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => window.print());
+      });
     }
 
     // =========================================================================
