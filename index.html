@@ -214,26 +214,22 @@
         margin: 0 !important;
         padding: 0 !important;
         display: flex !important;
-        align-items: stretch !important;
-        justify-content: stretch !important;
+        align-items: center !important;
+        justify-content: center !important;
       }
       .cert-half-slot:first-child {
         border-bottom: 1px dashed #94a3b8 !important;
       }
 
-      /* Zoom scales layout box cleanly so 100% of text, award date, and signatories render */
+      /* Full 816px height preserved at 0.646 zoom (= 527px = exact half of 1056px Letter Portrait) */
       .cert-half-slot .cert-canvas {
         width: 1056px !important;
-        height: 760px !important;
-        zoom: 0.773;
+        height: 816px !important;
+        zoom: 0.646;
         box-shadow: none !important;
         margin: 0 auto !important;
         padding: 0 !important;
         flex-shrink: 0 !important;
-      }
-      .cert-half-slot .cert-text-stack {
-        padding-top: 22px !important;
-        padding-bottom: 66px !important;
       }
     }
   </style>
@@ -629,78 +625,34 @@
                 </g>
               </svg>
 
-              <!-- ALL FOUR CORNER RIBBONS IN ONE EXACT VECTOR LAYER -->
+              <!-- ALL FOUR CORNER RIBBONS USING SOLID FILLS (100% PRINT SAFE) -->
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
-                <defs>
-                  <linearGradient id="goldTL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f7e37b"/>
-                    <stop offset="50%" stop-color="#d4af37"/>
-                    <stop offset="100%" stop-color="#9c7816"/>
-                  </linearGradient>
-                  <linearGradient id="greenTL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#062c14"/>
-                    <stop offset="100%" stop-color="#0f4c24"/>
-                  </linearGradient>
-                  <linearGradient id="goldTR" x1="100%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#f7e37b"/>
-                    <stop offset="50%" stop-color="#d4af37"/>
-                    <stop offset="100%" stop-color="#9c7816"/>
-                  </linearGradient>
-                  <linearGradient id="goldBotLeft" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#b58e20"/>
-                    <stop offset="45%" stop-color="#f6e27a"/>
-                    <stop offset="100%" stop-color="#c49a27"/>
-                  </linearGradient>
-                  <linearGradient id="goldBotRight" x1="100%" y1="0%" x2="0%" y2="0%">
-                    <stop offset="0%" stop-color="#b58e20"/>
-                    <stop offset="50%" stop-color="#f6e27a"/>
-                    <stop offset="100%" stop-color="#9e7b18"/>
-                  </linearGradient>
-                  <linearGradient id="greenBot" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#0d4822"/>
-                    <stop offset="100%" stop-color="#062912"/>
-                  </linearGradient>
-                </defs>
-
                 <!-- 1. TOP-LEFT CORNER RIBBON -->
-                <polygon points="0,145 40,115 40,218 0,248" fill="url(#goldTL)" />
+                <polygon points="0,145 40,115 40,218 0,248" fill="#d4af37" />
                 <polygon points="0,151 31,128 31,208 0,231" fill="#09381a" />
-                <polygon points="0,0 288,0 0,185" fill="url(#goldTL)" />
-                <polygon points="0,0 258,0 0,165" fill="url(#greenTL)" />
+                <polygon points="0,0 288,0 0,185" fill="#d4af37" />
+                <polygon points="0,0 258,0 0,165" fill="#0b3e1d" />
 
                 <!-- 2. TOP-RIGHT CORNER RIBBON (Behind Seal) -->
-                <polygon points="1056,0 742,0 1056,195" fill="url(#goldTR)" />
-                <polygon points="1056,0 778,0 1056,172" fill="url(#greenTL)" />
+                <polygon points="1056,0 742,0 1056,195" fill="#d4af37" />
+                <polygon points="1056,0 778,0 1056,172" fill="#0b3e1d" />
 
                 <!-- 3. LOWER-RIGHT EDGE ACCENT TAB -->
-                <polygon points="1056,608 1016,638 1016,718 1056,688" fill="url(#goldTR)" />
+                <polygon points="1056,608 1016,638 1016,718 1056,688" fill="#d4af37" />
                 <polygon points="1056,617 1025,640 1025,708 1056,685" fill="#09381a" />
 
-                <!-- 4. BOTTOM-RIGHT CHEVRON RIBBON (Low profile so Principal is 100% clear) -->
-                <polygon points="1056,658 688,816 1056,816" fill="url(#goldBotRight)" />
-                <polygon points="1056,680 748,816 1056,816" fill="url(#greenBot)" />
+                <!-- 4. BOTTOM-RIGHT CHEVRON RIBBON -->
+                <polygon points="1056,658 688,816 1056,816" fill="#d4af37" />
+                <polygon points="1056,680 748,816 1056,816" fill="#09381a" />
 
-                <!-- 5. BOTTOM-LEFT CHEVRON RIBBON (Low profile so Adviser is 100% clear) -->
-                <polygon points="0,658 372,816 0,816" fill="url(#goldBotLeft)" />
-                <polygon points="0,680 312,816 0,816" fill="url(#greenBot)" />
+                <!-- 5. BOTTOM-LEFT CHEVRON RIBBON -->
+                <polygon points="0,658 372,816 0,816" fill="#d4af37" />
+                <polygon points="0,680 312,816 0,816" fill="#09381a" />
               </svg>
 
               <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails -->
               <div class="absolute top-3 right-5 w-[180px] h-[220px] flex flex-col items-center select-none pointer-events-none">
                 <svg class="w-[180px] h-[220px]" viewBox="0 0 180 220">
-                  <defs>
-                    <radialGradient id="rosetteGreen" cx="45%" cy="35%" r="65%">
-                      <stop offset="0%" stop-color="#228b3b"/>
-                      <stop offset="65%" stop-color="#115e26"/>
-                      <stop offset="100%" stop-color="#093816"/>
-                    </radialGradient>
-                    <linearGradient id="sealGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#f8e688"/>
-                      <stop offset="50%" stop-color="#cfa62c"/>
-                      <stop offset="100%" stop-color="#8c6a0e"/>
-                    </linearGradient>
-                  </defs>
-
                   <!-- Left Ribbon Tail (V-notched) -->
                   <polygon points="48,125 22,196 46,178 64,206 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
                   <line x1="51" y1="132" x2="31" y2="188" stroke="#d4af37" stroke-width="1.2"/>
@@ -712,9 +664,9 @@
                   <line x1="104" y1="134" x2="119" y2="198" stroke="#d4af37" stroke-width="1.2"/>
 
                   <!-- Scalloped Fluted Rosette Outer Edge -->
-                  <circle cx="90" cy="82" r="73" fill="url(#rosetteGreen)" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
-                  <circle cx="90" cy="82" r="67" fill="url(#rosetteGreen)" stroke="#f6e27a" stroke-width="1.5"/>
-                  <circle cx="90" cy="82" r="61" fill="url(#sealGoldRim)" />
+                  <circle cx="90" cy="82" r="73" fill="#115e26" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
+                  <circle cx="90" cy="82" r="67" fill="#115e26" stroke="#f6e27a" stroke-width="1.5"/>
+                  <circle cx="90" cy="82" r="61" fill="#d4af37" />
 
                   <!-- White Circular Ring for School Name -->
                   <circle cx="90" cy="82" r="57" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
@@ -1437,7 +1389,6 @@
 
     function buildCertificateCloneForStudent(template, st) {
       const clone = template.cloneNode(true);
-      // Populate fields using data-field before stripping duplicate IDs
       if (st) {
         clone.querySelector('[data-field="name"]').textContent = formatNameForCertificate(st.name);
         clone.querySelector('[data-field="honor"]').textContent = formatHonorScriptTitle(st.remarks);
@@ -1445,7 +1396,6 @@
         clone.querySelector('[data-field="average"]').textContent = formatCertAverage(st.activeAvg);
         clone.querySelector('[data-field="adviser"]').textContent = getAdviserForSection(st.section);
       }
-      // Remove all duplicate id attributes from cloned elements so browser print layout never clips
       clone.removeAttribute('id');
       clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
       return clone;
@@ -1464,13 +1414,11 @@
       const sheet = document.createElement('div');
       sheet.className = 'letter-portrait-sheet';
 
-      // Top slot: currently displayed certificate
       const topSlot = document.createElement('div');
       topSlot.className = 'cert-half-slot';
       topSlot.appendChild(buildCertificateCloneForStudent(template, null));
       sheet.appendChild(topSlot);
 
-      // Bottom slot: next honor student if available, otherwise clean blank slot
       const bottomSlot = document.createElement('div');
       bottomSlot.className = 'cert-half-slot';
       if (includedList.length > 1 && includedList[currentCertIndex + 1]) {
@@ -1496,7 +1444,6 @@
       const template = document.getElementById('active-certificate');
       const frag = document.createDocumentFragment();
 
-      // Pack 2 complete certificates per US Letter Portrait page (8.5in x 11in)
       for (let i = 0; i < includedList.length; i += 2) {
         const sheet = document.createElement('div');
         sheet.className = 'letter-portrait-sheet';
