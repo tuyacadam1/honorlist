@@ -37,7 +37,7 @@
       text-transform: uppercase;
     }
 
-    /* Base Certificate Canvas (Designed at 1056px x 816px for crisp scaling to 2-up Letter Portrait 8.5in x 5.5in) */
+    /* Base Certificate Canvas */
     .cert-canvas {
       width: 1056px;
       height: 816px;
@@ -146,7 +146,7 @@
     }
 
     /* =====================================================================
-       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in) — EDGE TO EDGE
+       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in) — 100% FULL FIT
        ===================================================================== */
     @page {
       size: 8.5in 11in;
@@ -155,8 +155,8 @@
 
     @media print {
       html, body {
-        width: 8.5in !important;
-        height: 11in !important;
+        width: 100% !important;
+        height: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
         background: #ffffff !important;
@@ -182,14 +182,14 @@
       }
       body.printing-cert #cert-print-staging {
         display: block !important;
-        width: 8.5in !important;
+        width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
       }
 
       .letter-portrait-sheet {
-        width: 8.5in !important;
-        height: 11in !important;
+        width: 100vw !important;
+        height: 100vh !important;
         display: flex !important;
         flex-direction: column !important;
         margin: 0 !important;
@@ -206,30 +206,34 @@
       }
 
       .cert-half-slot {
-        width: 8.5in !important;
-        height: 5.5in !important;
+        width: 100% !important;
+        height: 50% !important;
         position: relative !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
         margin: 0 !important;
         padding: 0 !important;
+        display: flex !important;
+        align-items: stretch !important;
+        justify-content: stretch !important;
       }
       .cert-half-slot:first-child {
-        border-bottom: 1px dashed #94a3b8 !important; /* Subtle cut line at exact 5.5in midpoint */
+        border-bottom: 1px dashed #94a3b8 !important;
       }
 
-      /* Exact Edge-to-Edge Fit: 1056px * 0.772727 = 816px (8.5in), 816px * 0.647059 = 528px (5.5in) */
+      /* Zoom scales layout box cleanly so 100% of text, award date, and signatories render */
       .cert-half-slot .cert-canvas {
         width: 1056px !important;
-        height: 816px !important;
-        transform: scale(0.772727, 0.647059) !important;
-        transform-origin: 0 0 !important;
-        position: absolute !important;
-        top: 0 !important;
-        left: 0 !important;
+        height: 760px !important;
+        zoom: 0.773;
         box-shadow: none !important;
-        margin: 0 !important;
+        margin: 0 auto !important;
         padding: 0 !important;
+        flex-shrink: 0 !important;
+      }
+      .cert-half-slot .cert-text-stack {
+        padding-top: 22px !important;
+        padding-bottom: 66px !important;
       }
     }
   </style>
@@ -542,7 +546,7 @@
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
               <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — 2 Certificates per US Letter Portrait (8.5" × 11")</h2>
-              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 certificates stacked edge-to-edge per Letter Portrait sheet.</p>
+              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 complete certificates per Letter Portrait page.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <button onclick="prevCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">◀ Prev</button>
@@ -741,7 +745,7 @@
               </div>
 
               <!-- Foreground Editable Certificate Text -->
-              <div class="relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-[86px] px-14 text-center">
+              <div class="cert-text-stack relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-[86px] px-14 text-center">
                 <!-- Top Gold Wheat/Laurel Flourish & Header -->
                 <div class="w-full flex flex-col items-center">
                   <svg class="w-80 h-5 mb-1" viewBox="0 0 320 20">
@@ -768,22 +772,22 @@
                   <div contenteditable="true" id="cert-title" class="cert-main-heading text-[52px] leading-[1.05]">
                     Certificate of Recognition
                   </div>
-                  <div contenteditable="true" id="cert-honor-tier" class="cert-honor-script text-[70px] leading-[0.88] mt-1">
+                  <div contenteditable="true" id="cert-honor-tier" data-field="honor" class="cert-honor-script text-[70px] leading-[0.88] mt-1">
                     With Honors
                   </div>
                 </div>
 
                 <!-- Recipient Name & Citation Paragraph -->
                 <div class="w-full max-w-4xl flex flex-col items-center">
-                  <div contenteditable="true" id="cert-recipient-name" class="cert-student-name text-[78px] px-8 border-b-[1.8px] border-[#093618] min-w-[760px]">
+                  <div contenteditable="true" id="cert-recipient-name" data-field="name" class="cert-student-name text-[78px] px-8 border-b-[1.8px] border-[#093618] min-w-[760px]">
                     Joannah Faye V. Nadala
                   </div>
 
                   <div class="cert-body-text text-[26.5px] leading-[1.35] mt-2.5">
                     of Grade <span contenteditable="true" id="cert-grade" class="cert-blank-line min-w-[60px]">7</span>
-                    Section <span contenteditable="true" id="cert-section" class="cert-blank-line min-w-[165px]">Gemelina</span>
+                    Section <span contenteditable="true" id="cert-section" data-field="section" class="cert-blank-line min-w-[165px]">Gemelina</span>
                     has obtained a General<br/>
-                    Average of <span contenteditable="true" id="cert-average" class="cert-blank-line min-w-[74px]">93</span>
+                    Average of <span contenteditable="true" id="cert-average" data-field="average" class="cert-blank-line min-w-[74px]">93</span>
                     in the <span contenteditable="true" id="cert-quarter" class="font-bold">1<sup>st</sup></span> Quarter,
                     S.Y. <span contenteditable="true" id="cert-sy" class="font-bold">2026-2027</span>.
                   </div>
@@ -797,7 +801,7 @@
                 <!-- Bottom Signatories (100% Inside Clean White Area Above Bottom Ribbons) -->
                 <div class="w-full max-w-2xl grid grid-cols-2 gap-12 pt-1">
                   <div class="flex flex-col items-center">
-                    <div contenteditable="true" id="cert-adviser-name" class="cert-sign-name text-[20px] tracking-wide uppercase">
+                    <div contenteditable="true" id="cert-adviser-name" data-field="adviser" class="cert-sign-name text-[20px] tracking-wide uppercase">
                       ARNOLD N. DELA PEÑA
                     </div>
                     <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[18px] -mt-1">
@@ -1433,14 +1437,17 @@
 
     function buildCertificateCloneForStudent(template, st) {
       const clone = template.cloneNode(true);
-      clone.removeAttribute('id');
+      // Populate fields using data-field before stripping duplicate IDs
       if (st) {
-        clone.querySelector('#cert-recipient-name').textContent = formatNameForCertificate(st.name);
-        clone.querySelector('#cert-honor-tier').textContent = formatHonorScriptTitle(st.remarks);
-        clone.querySelector('#cert-section').textContent = titleCaseName(st.section);
-        clone.querySelector('#cert-average').textContent = formatCertAverage(st.activeAvg);
-        clone.querySelector('#cert-adviser-name').textContent = getAdviserForSection(st.section);
+        clone.querySelector('[data-field="name"]').textContent = formatNameForCertificate(st.name);
+        clone.querySelector('[data-field="honor"]').textContent = formatHonorScriptTitle(st.remarks);
+        clone.querySelector('[data-field="section"]').textContent = titleCaseName(st.section);
+        clone.querySelector('[data-field="average"]').textContent = formatCertAverage(st.activeAvg);
+        clone.querySelector('[data-field="adviser"]').textContent = getAdviserForSection(st.section);
       }
+      // Remove all duplicate id attributes from cloned elements so browser print layout never clips
+      clone.removeAttribute('id');
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
       return clone;
     }
 
@@ -1463,7 +1470,7 @@
       topSlot.appendChild(buildCertificateCloneForStudent(template, null));
       sheet.appendChild(topSlot);
 
-      // Bottom slot: next honor student if available (saves paper!), otherwise clean blank slot
+      // Bottom slot: next honor student if available, otherwise clean blank slot
       const bottomSlot = document.createElement('div');
       bottomSlot.className = 'cert-half-slot';
       if (includedList.length > 1 && includedList[currentCertIndex + 1]) {
@@ -1489,7 +1496,7 @@
       const template = document.getElementById('active-certificate');
       const frag = document.createDocumentFragment();
 
-      // Pack 2 certificates per US Letter Portrait page (8.5in x 11in)
+      // Pack 2 complete certificates per US Letter Portrait page (8.5in x 11in)
       for (let i = 0; i < includedList.length; i += 2) {
         const sheet = document.createElement('div');
         sheet.className = 'letter-portrait-sheet';
