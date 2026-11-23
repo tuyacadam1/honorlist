@@ -9,7 +9,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@700;800&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,500;1,600&family=Great+Vibes&family=Inter:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -37,89 +37,95 @@
       text-transform: uppercase;
     }
 
-    /* Certificate of Recognition Styling */
+    /* Exact Certificate of Recognition Canvas (1056 x 747 matching 1024x724 ratio) */
     .cert-canvas {
       width: 1056px;
-      height: 816px;
+      height: 748px;
       position: relative;
       overflow: hidden;
-      background:
-        radial-gradient(circle at 18% 22%, rgba(212, 175, 55, 0.13) 0%, transparent 45%),
-        radial-gradient(circle at 82% 78%, rgba(212, 175, 55, 0.14) 0%, transparent 48%),
-        radial-gradient(circle at 52% 48%, rgba(245, 236, 213, 0.45) 0%, transparent 65%),
-        linear-gradient(135deg, #fdfbf7 0%, #f9f4e8 48%, #fcfaf3 100%);
+      background-color: #ffffff;
       box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.25);
       user-select: text;
     }
 
-    /* Subtle Marble Veins SVG overlay */
-    .cert-marble-bg {
+    /* Rich White & Gold-Beige Marble Texture */
+    .cert-marble-layer {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      opacity: 0.42;
       pointer-events: none;
+      background:
+        radial-gradient(ellipse at 12% 35%, rgba(218, 198, 152, 0.32) 0%, transparent 42%),
+        radial-gradient(ellipse at 85% 22%, rgba(212, 188, 138, 0.28) 0%, transparent 38%),
+        radial-gradient(ellipse at 48% 55%, rgba(226, 208, 168, 0.24) 0%, transparent 50%),
+        radial-gradient(ellipse at 78% 82%, rgba(214, 192, 144, 0.30) 0%, transparent 45%),
+        radial-gradient(ellipse at 22% 85%, rgba(220, 200, 156, 0.26) 0%, transparent 40%),
+        linear-gradient(125deg, #ffffff 0%, #fcfaf5 35%, #f7f1e3 68%, #ffffff 100%);
     }
 
     .cert-school-title {
-      font-family: 'Cinzel', 'Times New Roman', serif;
-      color: #0f4c29;
-      letter-spacing: 0.02em;
+      font-family: 'Libre Baskerville', 'Times New Roman', serif;
+      color: #0f4722;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
     .cert-dept-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #14532d;
+      color: #166534;
       font-weight: 700;
     }
     .cert-address {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #1e293b;
+      color: #111827;
       font-style: italic;
+      font-weight: 600;
     }
     .cert-main-heading {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Libre Baskerville', 'Cormorant Garamond', Georgia, serif;
       font-weight: 700;
-      color: #d4af37;
-      -webkit-text-stroke: 1.6px #0f3d22;
+      color: #d6b628;
+      -webkit-text-stroke: 1.9px #0b3819;
       paint-order: stroke fill;
-      text-shadow: 1px 2px 0px rgba(15, 61, 34, 0.28);
-      letter-spacing: 0.01em;
+      text-shadow: 0px 2px 1px rgba(11, 56, 25, 0.22);
+      letter-spacing: -0.01em;
     }
     .cert-honor-script {
       font-family: 'Great Vibes', 'Alex Brush', cursive;
-      color: #c59b27;
-      -webkit-text-stroke: 1.1px #144528;
+      color: #d2b224;
+      -webkit-text-stroke: 1.5px #0b3819;
       paint-order: stroke fill;
-      text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.14);
+      text-shadow: 0px 2px 2px rgba(11, 56, 25, 0.2);
     }
     .cert-student-name {
       font-family: 'Alex Brush', 'Great Vibes', cursive;
-      color: #090d0b;
-      line-height: 1.05;
+      color: #080a09;
+      line-height: 0.96;
     }
     .cert-body-text {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #111827;
+      color: #0f172a;
+      font-weight: 600;
     }
     .cert-blank-line {
       display: inline-block;
-      border-bottom: 1.5px solid #0f3d22;
-      padding: 0 12px;
-      min-width: 56px;
+      border-bottom: 1.8px solid #0b3819;
+      padding: 0 14px;
+      min-width: 64px;
       text-align: center;
       font-weight: 700;
-      line-height: 1.05;
+      line-height: 1.02;
     }
     .cert-sign-name {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #0f3d22;
+      color: #0b3819;
       font-weight: 700;
     }
     .cert-sign-role {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #1f2937;
+      color: #111827;
       font-style: italic;
+      font-weight: 600;
     }
 
     [contenteditable="true"]:hover {
@@ -488,14 +494,14 @@
         </div>
       </section>
 
-      <!-- TAB 4: EDITABLE CERTIFICATE OF RECOGNITION -->
+      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION -->
       <section id="panel-certificate" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6 space-y-5">
         <!-- Studio Controls Bar -->
         <div class="no-print bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
-              <h2 class="text-base font-bold text-slate-900">Editable Certificate of Recognition Studio</h2>
-              <p class="text-xs text-slate-600">Select an honor student or click directly on any text inside the certificate to customize it.</p>
+              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — Text Editor</h2>
+              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <button onclick="prevCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">◀ Prev</button>
@@ -507,11 +513,11 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-xs">
             <div>
               <label class="block font-semibold text-slate-600 mb-1">Grade Level</label>
-              <input id="ctrl-grade" type="text" value="10" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+              <input id="ctrl-grade" type="text" value="7" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
             </div>
             <div>
               <label class="block font-semibold text-slate-600 mb-1">Quarter</label>
-              <input id="ctrl-quarter" type="text" value="2nd" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+              <input id="ctrl-quarter" type="text" value="1st" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
             </div>
             <div>
               <label class="block font-semibold text-slate-600 mb-1">School Year</label>
@@ -519,9 +525,9 @@
             </div>
             <div>
               <label class="block font-semibold text-slate-600 mb-1">Average Format</label>
-              <select id="ctrl-avg-format" onchange="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2 py-1.5 bg-white">
-                <option value="round">Rounded Whole Number (e.g., 94)</option>
-                <option value="2dec">2 Decimal Places (e.g., 93.75)</option>
+              <select id="ctrl-avg-format" onchange="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white">
+                <option value="round">Whole Number (e.g., 93)</option>
+                <option value="2dec">2 Decimals (e.g., 93.75)</option>
                 <option value="exact">Exact Decimal (e.g., 93.625)</option>
               </select>
             </div>
@@ -542,7 +548,7 @@
           <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
             <div class="flex flex-wrap items-center gap-3">
               <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
-                <input id="ctrl-auto-adviser" type="checkbox" checked onchange="syncCertFromControls()" class="rounded text-emerald-700" />
+                <input id="ctrl-auto-adviser" type="checkbox" onchange="syncCertFromControls()" class="rounded text-emerald-700" />
                 <span>Auto-match Adviser by Section (Talisay / Tanguile)</span>
               </label>
               <label class="px-2.5 py-1 rounded-md bg-white border border-slate-300 hover:bg-slate-100 text-xs font-medium text-slate-700 cursor-pointer">
@@ -561,162 +567,202 @@
           </div>
         </div>
 
-        <!-- Horizontal Scroll Wrapper for Certificate Canvas -->
+        <!-- Exact Certificate Design Canvas -->
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
-              <!-- Subtle Marble Veins SVG -->
-              <svg class="cert-marble-bg" viewBox="0 0 1056 816" preserveAspectRatio="none">
-                <path d="M-20,140 Q180,190 340,90 T720,160 T1080,80" fill="none" stroke="#d6c59c" stroke-width="2.5" opacity="0.55"/>
-                <path d="M-10,152 Q190,205 355,102 T735,172 T1080,95" fill="none" stroke="#b89d58" stroke-width="1" opacity="0.4"/>
-                <path d="M120,820 Q280,620 490,650 T890,460 T1070,390" fill="none" stroke="#d6c59c" stroke-width="3" opacity="0.5"/>
-                <path d="M135,820 Q295,635 505,662 T905,475 T1070,405" fill="none" stroke="#b89d58" stroke-width="1.1" opacity="0.35"/>
-                <path d="M-30,520 Q210,480 410,560 T840,730" fill="none" stroke="#dfd1ae" stroke-width="2.2" opacity="0.5"/>
+              <!-- Marble Background & Realistic Marble Veining -->
+              <div class="cert-marble-layer"></div>
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 748" preserveAspectRatio="none">
+                <defs>
+                  <filter id="marbleBlur" x="-10%" y="-10%" width="120%" height="120%">
+                    <feGaussianBlur stdDeviation="2.2" />
+                  </filter>
+                </defs>
+                <!-- Soft Gold-Tan Marble Veins -->
+                <g filter="url(#marbleBlur)" fill="none" stroke-linecap="round">
+                  <path d="M-20,180 C120,165 210,235 340,190 C460,150 530,85 690,115 C820,140 930,90 1080,60" stroke="#dcc796" stroke-width="5" opacity="0.45"/>
+                  <path d="M-10,192 C130,178 220,248 350,202 C470,162 540,98 700,128" stroke="#c3a463" stroke-width="1.8" opacity="0.35"/>
+                  <path d="M90,760 C190,640 270,580 395,565 C510,550 595,465 745,440 C880,418 965,360 1075,310" stroke="#dcc796" stroke-width="6" opacity="0.48"/>
+                  <path d="M115,760 C215,645 290,590 412,575 C525,560 610,478 758,452" stroke="#bfa05d" stroke-width="2" opacity="0.38"/>
+                  <path d="M-25,470 C95,495 165,575 290,610 C420,645 530,695 675,745" stroke="#e2cfa5" stroke-width="4.5" opacity="0.42"/>
+                  <path d="M430,-10 C475,95 450,185 515,275 C575,355 695,385 810,495 C895,575 975,620 1070,660" stroke="#dfd0ac" stroke-width="4" opacity="0.35"/>
+                </g>
               </svg>
 
-              <!-- Top-Left Forest Green & Metallic Gold Corner Geometric Ribbon -->
-              <svg class="absolute top-0 left-0 w-[230px] h-[230px] pointer-events-none" viewBox="0 0 230 230">
+              <!-- Top-Left Forest Green & Metallic Gold Corner Geometric Ribbon (Exact match) -->
+              <svg class="absolute top-0 left-0 w-[235px] h-[235px] pointer-events-none" viewBox="0 0 235 235">
                 <defs>
-                  <linearGradient id="goldGradTL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#f6e27a"/>
-                    <stop offset="45%" stop-color="#d4af37"/>
-                    <stop offset="100%" stop-color="#9e7b18"/>
+                  <linearGradient id="goldTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f7e37b"/>
+                    <stop offset="50%" stop-color="#d4af37"/>
+                    <stop offset="100%" stop-color="#9c7816"/>
                   </linearGradient>
-                  <linearGradient id="greenGradTL" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#0a381d"/>
-                    <stop offset="100%" stop-color="#14532d"/>
+                  <linearGradient id="greenTL" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#062c14"/>
+                    <stop offset="100%" stop-color="#0f4c24"/>
                   </linearGradient>
                 </defs>
-                <!-- Outer Gold Trim -->
-                <polygon points="0,0 218,0 0,165" fill="url(#goldGradTL)" />
-                <!-- Main Dark Green Triangle -->
-                <polygon points="0,0 198,0 0,148" fill="url(#greenGradTL)" />
-                <!-- Lower Gold Diagonal Accent -->
-                <polygon points="0,152 38,124 38,195 0,224" fill="url(#goldGradTL)" />
-                <polygon points="0,158 32,134 32,186 0,210" fill="#0f4c29" />
+                <!-- Secondary vertical/diagonal green & gold step tab underneath -->
+                <polygon points="0,125 40,95 40,192 0,222" fill="url(#goldTL)" />
+                <polygon points="0,130 31,107 31,182 0,205" fill="#09381a" />
+                <!-- Main Top-Left Gold Border & Dark Green Triangle -->
+                <polygon points="0,0 222,0 0,164" fill="url(#goldTL)" />
+                <polygon points="0,0 202,0 0,148" fill="url(#greenTL)" />
               </svg>
 
-              <!-- Bottom-Left Geometric Ribbon -->
-              <svg class="absolute bottom-0 left-0 w-[540px] h-[165px] pointer-events-none" viewBox="0 0 540 165">
+              <!-- Bottom-Left & Bottom-Right Overlapping Chevron Ribbons (Exact match) -->
+              <svg class="absolute bottom-0 left-0 w-full h-[175px] pointer-events-none" viewBox="0 0 1056 175" preserveAspectRatio="none">
                 <defs>
-                  <linearGradient id="goldGradBL" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#b68f22"/>
-                    <stop offset="50%" stop-color="#f3dc75"/>
-                    <stop offset="100%" stop-color="#c69c2b"/>
+                  <linearGradient id="goldBotLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#b58e20"/>
+                    <stop offset="45%" stop-color="#f6e27a"/>
+                    <stop offset="100%" stop-color="#c49a27"/>
                   </linearGradient>
-                </defs>
-                <polygon points="0,15 530,165 0,165" fill="url(#goldGradBL)" />
-                <polygon points="0,36 465,165 0,165" fill="#0d4224" />
-              </svg>
-
-              <!-- Bottom-Right Geometric Ribbon -->
-              <svg class="absolute bottom-0 right-0 w-[560px] h-[175px] pointer-events-none" viewBox="0 0 560 175">
-                <defs>
-                  <linearGradient id="goldGradBR" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="#c69c2b"/>
+                  <linearGradient id="goldBotRight" x1="100%" y1="0%" x2="0%" y2="0%">
+                    <stop offset="0%" stop-color="#b58e20"/>
                     <stop offset="50%" stop-color="#f6e27a"/>
                     <stop offset="100%" stop-color="#9e7b18"/>
                   </linearGradient>
+                  <linearGradient id="greenBot" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#0d4822"/>
+                    <stop offset="100%" stop-color="#062912"/>
+                  </linearGradient>
                 </defs>
-                <polygon points="560,10 20,175 560,175" fill="url(#goldGradBR)" />
-                <polygon points="560,32 85,175 560,175" fill="#0d4224" />
+                <!-- Right Ribbon Wing (extends to bottom-left) -->
+                <polygon points="1056,12 435,175 1056,175" fill="url(#goldBotRight)" />
+                <polygon points="1056,33 505,175 1056,175" fill="url(#greenBot)" />
+
+                <!-- Left Ribbon Wing (overlapping slightly in front at center valley) -->
+                <polygon points="0,16 575,175 0,175" fill="url(#goldBotLeft)" />
+                <polygon points="0,37 500,175 0,175" fill="url(#greenBot)" />
               </svg>
 
-              <!-- Top-Right Rosette Seal & Ribbons -->
-              <div class="absolute top-4 right-5 w-[155px] h-[195px] flex flex-col items-center select-none">
-                <!-- Ribbon Tails Behind Seal -->
-                <svg class="w-[150px] h-[190px]" viewBox="0 0 150 190">
-                  <!-- Left & Right Green/Gold Tails -->
-                  <polygon points="36,115 16,178 36,164 48,184 64,122" fill="#14532d" stroke="#d4af37" stroke-width="2"/>
-                  <polygon points="114,115 134,178 114,164 102,184 86,122" fill="#14532d" stroke="#d4af37" stroke-width="2"/>
-                  <!-- Scalloped Green Rosette -->
-                  <circle cx="75" cy="74" r="64" fill="#166534" stroke="#d4af37" stroke-width="3" stroke-dasharray="6 3"/>
-                  <circle cx="75" cy="74" r="56" fill="#0f4c29" stroke="#f3dc75" stroke-width="2"/>
-                  <!-- Inner White Seal Ring -->
-                  <circle cx="75" cy="74" r="47" fill="#ffffff" stroke="#166534" stroke-width="2"/>
-                  <circle cx="75" cy="74" r="31" fill="#f8fafc" stroke="#166534" stroke-width="1.5"/>
-                  <!-- Curved Circular Text -->
+              <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails (Exact match) -->
+              <div class="absolute top-2 right-3 w-[180px] h-[215px] flex flex-col items-center select-none pointer-events-none">
+                <svg class="w-[180px] h-[215px]" viewBox="0 0 180 215">
                   <defs>
-                    <path id="sealTopArc" d="M 36,74 A 39,39 0 1,1 114,74" />
-                    <path id="sealBotArc" d="M 39,80 A 38,38 0 0,0 111,80" />
+                    <radialGradient id="rosetteGreen" cx="45%" cy="35%" r="65%">
+                      <stop offset="0%" stop-color="#228b3b"/>
+                      <stop offset="65%" stop-color="#115e26"/>
+                      <stop offset="100%" stop-color="#093816"/>
+                    </radialGradient>
+                    <linearGradient id="sealGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#f8e688"/>
+                      <stop offset="50%" stop-color="#cfa62c"/>
+                      <stop offset="100%" stop-color="#8c6a0e"/>
+                    </linearGradient>
                   </defs>
-                  <text font-size="8.2" font-weight="700" fill="#14532d" letter-spacing="1.2">
-                    <textPath href="#sealTopArc" startOffset="50%" text-anchor="middle">GINGOOG CITY COLLEGES</textPath>
+
+                  <!-- Left Ribbon Tail (V-notched) -->
+                  <polygon points="48,125 22,192 46,175 64,202 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="51" y1="132" x2="31" y2="185" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="76" y1="134" x2="61" y2="194" stroke="#d4af37" stroke-width="1.2"/>
+
+                  <!-- Right Ribbon Tail (V-notched) -->
+                  <polygon points="132,125 158,192 134,175 116,202 98,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="129" y1="132" x2="149" y2="185" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="104" y1="134" x2="119" y2="194" stroke="#d4af37" stroke-width="1.2"/>
+
+                  <!-- Scalloped Fluted Rosette Outer Edge -->
+                  <circle cx="90" cy="82" r="73" fill="url(#rosetteGreen)" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
+                  <circle cx="90" cy="82" r="67" fill="url(#rosetteGreen)" stroke="#f6e27a" stroke-width="1.5"/>
+                  <circle cx="90" cy="82" r="61" fill="url(#sealGoldRim)" />
+
+                  <!-- White Circular Ring for School Name -->
+                  <circle cx="90" cy="82" r="57" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+                  <circle cx="90" cy="82" r="36" fill="#ffffff" stroke="#14532d" stroke-width="1.8"/>
+
+                  <!-- Curved Circular Seal Typography -->
+                  <defs>
+                    <path id="gccTopArc" d="M 44,82 A 46,46 0 1,1 136,82" />
+                    <path id="gccBotArc" d="M 45,87 A 45,45 0 0,0 135,87" />
+                  </defs>
+                  <text font-size="9.5" font-weight="800" font-family="Times New Roman, serif" fill="#14532d" letter-spacing="1.2">
+                    <textPath href="#gccTopArc" startOffset="50%" text-anchor="middle">GINGOOG CITY COLLEGES</textPath>
                   </text>
-                  <text font-size="7.5" font-weight="700" fill="#14532d" letter-spacing="1">
-                    <textPath href="#sealBotArc" startOffset="50%" text-anchor="middle">• 1967 •</textPath>
+                  <text font-size="8.8" font-weight="800" font-family="Times New Roman, serif" fill="#14532d" letter-spacing="1.5">
+                    <textPath href="#gccBotArc" startOffset="50%" text-anchor="middle">• 1967 •</textPath>
                   </text>
-                  <!-- Center Torch & Book Emblem -->
-                  <path d="M59,75 Q75,82 91,75 L89,86 Q75,92 61,86 Z" fill="#166534"/>
-                  <rect x="73" y="59" width="4" height="18" fill="#b45309"/>
-                  <path d="M75,49 C79,54 78,59 75,60 C72,59 71,54 75,49 Z" fill="#eab308"/>
+
+                  <!-- Inner Gold & Green Crest (Open Book, Torch, Wreath) -->
+                  <circle cx="90" cy="82" r="31" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <!-- Laurel Wreath inside crest -->
+                  <path d="M68,92 C63,82 65,70 73,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M112,92 C117,82 115,70 107,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+                  <!-- Open Book -->
+                  <path d="M73,87 Q82,91 90,88 Q98,91 107,87 L105,96 Q98,99 90,96 Q82,99 75,96 Z" fill="#166534"/>
+                  <!-- Torch -->
+                  <rect x="88" y="68" width="4" height="20" fill="#a16207"/>
+                  <path d="M90,55 C95,61 94,67 90,69 C86,67 85,61 90,55 Z" fill="#eab308"/>
                 </svg>
-                <!-- Optional Uploaded Custom Seal Image Overlay -->
-                <img id="custom-seal-img" src="" alt="School Seal" class="hidden absolute top-3 w-[112px] h-[112px] rounded-full object-cover border-2 border-amber-300 bg-white shadow" />
+                <!-- Optional Custom Uploaded Seal Image -->
+                <img id="custom-seal-img" src="" alt="School Seal" class="hidden absolute top-[18px] w-[128px] h-[128px] rounded-full object-cover border-2 border-amber-300 bg-white shadow" />
               </div>
 
-              <!-- Certificate Main Content -->
-              <div class="relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-12 px-16 text-center">
-                <!-- Top Gold Laurel Flourish & School Header -->
+              <!-- Foreground Editable Certificate Text -->
+              <div class="relative z-10 h-full flex flex-col items-center justify-between pt-6 pb-11 px-14 text-center">
+                <!-- Top Gold Wheat/Laurel Flourish & Header -->
                 <div class="w-full flex flex-col items-center">
-                  <!-- Gold Laurel Divider -->
-                  <svg class="w-72 h-5 mb-1" viewBox="0 0 300 20">
-                    <line x1="15" y1="10" x2="285" y2="10" stroke="#d4af37" stroke-width="1.8"/>
-                    <path d="M40,10 L30,4 M55,10 L45,4 M70,10 L60,4 M85,10 L75,4 M100,10 L90,4 M115,10 L105,4" stroke="#d4af37" stroke-width="1.6"/>
-                    <path d="M40,10 L30,16 M55,10 L45,16 M70,10 L60,16 M85,10 L75,16 M100,10 L90,16 M115,10 L105,16" stroke="#d4af37" stroke-width="1.6"/>
-                    <path d="M260,10 L270,4 M245,10 L255,4 M230,10 L240,4 M215,10 L225,4 M200,10 L210,4 M185,10 L195,4" stroke="#d4af37" stroke-width="1.6"/>
-                    <path d="M260,10 L270,16 M245,10 L255,16 M230,10 L240,16 M215,10 L225,16 M200,10 L210,16 M185,10 L195,16" stroke="#d4af37" stroke-width="1.6"/>
+                  <svg class="w-80 h-5 mb-0.5" viewBox="0 0 320 20">
+                    <line x1="18" y1="10" x2="302" y2="10" stroke="#cfa526" stroke-width="1.6"/>
+                    <!-- Left Chevrons -->
+                    <path d="M42,10 L32,4 M57,10 L47,4 M72,10 L62,4 M87,10 L77,4 M102,10 L92,4 M117,10 L107,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M42,10 L32,16 M57,10 L47,16 M72,10 L62,16 M87,10 L77,16 M102,10 L92,16 M117,10 L107,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <!-- Right Chevrons -->
+                    <path d="M278,10 L288,4 M263,10 L273,4 M248,10 L258,4 M233,10 L243,4 M218,10 L228,4 M203,10 L213,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M278,10 L288,16 M263,10 L273,16 M248,10 L258,16 M233,10 L243,16 M218,10 L228,16 M203,10 L213,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
                   </svg>
 
-                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[31px] font-extrabold leading-tight">
+                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[30px] leading-tight">
                     GINGOOG CITY COLLEGES INC.
                   </div>
-                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[25px] leading-tight -mt-0.5">
+                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[28px] leading-[1.05]">
                     Junior High School Department
                   </div>
-                  <div contenteditable="true" id="cert-address" class="cert-address text-[16.5px] mt-0.5">
+                  <div contenteditable="true" id="cert-address" class="cert-address text-[18px] mt-0.5">
                     Macopa St. Paz Village Brgy. 24-A. 9014 Gingoog City
                   </div>
                 </div>
 
                 <!-- Title & Honor Classification -->
                 <div class="-mt-1">
-                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[56px] leading-none">
+                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[50px] leading-[1.05]">
                     Certificate of Recognition
                   </div>
-                  <div contenteditable="true" id="cert-honor-tier" class="cert-honor-script text-[62px] leading-[0.95] mt-1">
+                  <div contenteditable="true" id="cert-honor-tier" class="cert-honor-script text-[68px] leading-[0.88] mt-0.5">
                     With Honors
                   </div>
                 </div>
 
                 <!-- Recipient Name & Citation Paragraph -->
                 <div class="w-full max-w-4xl flex flex-col items-center -mt-1">
-                  <div contenteditable="true" id="cert-recipient-name" class="cert-student-name text-[66px] px-8 border-b-[1.8px] border-[#0f3d22] min-w-[680px]">
-                    Shanelle Kate V. Buque
+                  <div contenteditable="true" id="cert-recipient-name" class="cert-student-name text-[76px] px-8 border-b-[1.8px] border-[#0b3819] min-w-[760px]">
+                    Joannah Faye V. Nadala
                   </div>
 
-                  <div class="cert-body-text text-[25px] leading-[1.45] mt-3">
-                    of Grade <span contenteditable="true" id="cert-grade" class="cert-blank-line min-w-[54px]">10</span>
-                    Section <span contenteditable="true" id="cert-section" class="cert-blank-line min-w-[145px]">Talisay</span>
+                  <div class="cert-body-text text-[26px] leading-[1.32] mt-2">
+                    of Grade <span contenteditable="true" id="cert-grade" class="cert-blank-line min-w-[60px]">7</span>
+                    Section <span contenteditable="true" id="cert-section" class="cert-blank-line min-w-[165px]">Gemelina</span>
                     has obtained a General<br/>
-                    Average of <span contenteditable="true" id="cert-average" class="cert-blank-line min-w-[68px]">94</span>
-                    in the <span contenteditable="true" id="cert-quarter" class="font-semibold">2<sup>nd</sup></span> Quarter,
-                    S.Y. <span contenteditable="true" id="cert-sy" class="font-semibold">2026-2027</span>.
+                    Average of <span contenteditable="true" id="cert-average" class="cert-blank-line min-w-[74px]">93</span>
+                    in the <span contenteditable="true" id="cert-quarter" class="font-bold">1<sup>st</sup></span> Quarter,
+                    S.Y. <span contenteditable="true" id="cert-sy" class="font-bold">2026-2027</span>.
                   </div>
 
-                  <div class="cert-body-text italic text-[20px] mt-3">
+                  <div class="cert-body-text italic text-[21px] mt-3">
                     Awarded this <span contenteditable="true" id="cert-award-date">29<sup>th</sup> day of September 2026</span>
                     <span contenteditable="true" id="cert-program-text">during its Reading of Honors program.</span>
                   </div>
                 </div>
 
                 <!-- Bottom Signatories -->
-                <div class="w-full max-w-3xl grid grid-cols-2 gap-16 pt-2">
+                <div class="w-full max-w-3xl grid grid-cols-2 gap-16 pt-1">
                   <div class="flex flex-col items-center">
                     <div contenteditable="true" id="cert-adviser-name" class="cert-sign-name text-[20px] tracking-wide uppercase">
-                      MR. LEMUEL LUCABAN
+                      ARNOLD N. DELA PEÑA
                     </div>
-                    <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[17px] -mt-1">
+                    <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[18px] -mt-1">
                       Class Adviser
                     </div>
                   </div>
@@ -724,7 +770,7 @@
                     <div contenteditable="true" id="cert-principal-name" class="cert-sign-name text-[20px] tracking-wide uppercase">
                       APPLE JEAN A. SIDRO
                     </div>
-                    <div contenteditable="true" id="cert-principal-role" class="cert-sign-role text-[17px] -mt-1">
+                    <div contenteditable="true" id="cert-principal-role" class="cert-sign-role text-[18px] -mt-1">
                       School Principal
                     </div>
                   </div>
@@ -743,12 +789,10 @@
     // STATE MANAGEMENT
     // =========================================================================
     let allStudents = [];
-    let uploadedSections = {}; // sectionName -> { fileName, count, period, quarter }
+    let uploadedSections = {};
     let includedList = [];
     let excludedList = [];
     let currentCertIndex = 0;
-
-    const SUBJECT_LABELS = ['FILIPINO', 'ENGLISH', 'MATHEMATICS', 'SCIENCE', 'ARAL. PAN.', 'ESP', 'TLE/COMP.', 'MAPEH'];
 
     // =========================================================================
     // BUILT-IN SAMPLE DATA (From 10 Tanguile.xlsx & 10 Talisay.xlsx)
@@ -871,7 +915,6 @@
           const parsed = await parseSpreadsheetFile(file);
           if (parsed && parsed.students.length > 0) {
             const secName = (parsed.section || file.name.replace(/\.[^/.]+$/, '')).toUpperCase();
-            // Replace existing students of the same section if re-uploaded
             allStudents = allStudents.filter(s => s.section !== secName);
             parsed.students.forEach(st => {
               st.section = secName;
@@ -915,7 +958,6 @@
       } catch (sheetJsErr) {
         console.warn('SheetJS fallback triggered for', file.name, sheetJsErr);
       }
-      // Fallback: direct JSZip XML reader for custom/malformed style XML workbooks
       return await parseXlsxViaZipXml(arrayBuffer, file.name);
     }
 
@@ -1061,10 +1103,6 @@
     // HONORS CLASSIFICATION & RANKING ENGINE
     // =========================================================================
     function classifyHonor(avg) {
-      // User-specified ranges:
-      // 89.5 - 94 => With Honors (up to 94.999)
-      // 95 - 97   => With High Honors (up to 97.999)
-      // 98 above  => With Highest Honors
       if (avg >= 98) return 'WITH HIGHEST HONORS';
       if (avg >= 95) return 'WITH HIGH HONORS';
       if (avg >= 89.5) return 'WITH HONORS';
@@ -1094,15 +1132,13 @@
           };
         });
 
-      // Separate & Sort Strictly Descending (Highest to Lowest)
       const allIncluded = computed
         .filter(s => s.remarks !== 'NOT INCLUDED')
         .sort((a, b) => b.activeAvg - a.activeAvg || a.name.localeCompare(b.name));
 
-      // Assign tie-aware rank numbers (1, 1, 2, 3...)
       let currentRank = 0;
       let prevScore = null;
-      allIncluded.forEach((st, idx) => {
+      allIncluded.forEach((st) => {
         if (prevScore === null || st.activeAvg < prevScore) {
           currentRank += 1;
           prevScore = st.activeAvg;
@@ -1117,7 +1153,6 @@
       includedList = allIncluded;
       excludedList = allExcluded;
 
-      // Update KPI Counters
       document.getElementById('kpi-total').textContent = computed.length;
       document.getElementById('kpi-included').textContent = allIncluded.length;
       document.getElementById('kpi-highest').textContent = allIncluded.filter(s => s.remarks === 'WITH HIGHEST HONORS').length;
@@ -1128,7 +1163,6 @@
       document.getElementById('badge-included').textContent = allIncluded.length;
       document.getElementById('badge-excluded').textContent = allExcluded.length;
 
-      // Filtered views for tables
       const visibleIncluded = allIncluded.filter(s => {
         const matchSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery) || s.section.toLowerCase().includes(searchQuery);
         const matchTier = tierFilter === 'ALL' || s.remarks === tierFilter;
@@ -1152,7 +1186,7 @@
         return;
       }
 
-      tbody.innerHTML = list.map((st, idx) => {
+      tbody.innerHTML = list.map((st) => {
         const badgeStyle = st.remarks === 'WITH HIGHEST HONORS'
           ? 'bg-amber-100 text-amber-900 border-amber-300'
           : st.remarks === 'WITH HIGH HONORS'
@@ -1229,7 +1263,7 @@
     function populateCertStudentDropdown(list) {
       const select = document.getElementById('cert-student-select');
       if (!list.length) {
-        select.innerHTML = `<option value="-1">No Honor Students Loaded</option>`;
+        select.innerHTML = `<option value="-1">Default Template (Joannah Faye V. Nadala)</option>`;
         return;
       }
       if (currentCertIndex >= list.length) currentCertIndex = 0;
@@ -1272,7 +1306,6 @@
     }
 
     function formatNameForCertificate(rawName) {
-      // Converts "Buque, Shanelle Kate V." -> "Shanelle Kate V. Buque"
       if (rawName.includes(',')) {
         const parts = rawName.split(',');
         const last = titleCaseName(parts[0].trim());
@@ -1329,20 +1362,22 @@
       document.getElementById('cert-sy').textContent = document.getElementById('ctrl-sy').value;
       document.getElementById('cert-principal-name').textContent = document.getElementById('ctrl-principal').value;
 
-      // Format ordinal quarter (e.g., 2nd -> 2<sup>nd</sup>)
       const qVal = document.getElementById('ctrl-quarter').value.trim();
       const qHtml = qVal.replace(/^(\d+)(st|nd|rd|th)$/i, '$1<sup>$2</sup>');
       document.getElementById('cert-quarter').innerHTML = qHtml;
 
-      // Format ordinal day (e.g., 29th -> 29<sup>th</sup>)
       const dateVal = document.getElementById('ctrl-award-date').value.trim();
       const dateHtml = dateVal.replace(/\b(\d+)(st|nd|rd|th)\b/gi, '$1<sup>$2</sup>');
       document.getElementById('cert-award-date').innerHTML = dateHtml;
 
-      if (refreshStudent && includedList[currentCertIndex]) {
-        const st = includedList[currentCertIndex];
-        document.getElementById('cert-average').textContent = formatCertAverage(st.activeAvg);
-        document.getElementById('cert-adviser-name').textContent = getAdviserForSection(st.section);
+      if (refreshStudent) {
+        if (includedList[currentCertIndex]) {
+          const st = includedList[currentCertIndex];
+          document.getElementById('cert-average').textContent = formatCertAverage(st.activeAvg);
+          document.getElementById('cert-adviser-name').textContent = getAdviserForSection(st.section);
+        } else {
+          document.getElementById('cert-adviser-name').textContent = document.getElementById('ctrl-adviser').value;
+        }
       }
     }
 
@@ -1514,6 +1549,9 @@
         TANGUILE: { fileName: '10 Tanguile.xlsx (Sample)', count: 42 },
         TALISAY: { fileName: '10 Talisay.xlsx (Sample)', count: 38 }
       };
+      document.getElementById('ctrl-grade').value = '10';
+      document.getElementById('ctrl-quarter').value = '2nd';
+      document.getElementById('ctrl-auto-adviser').checked = true;
       updateSectionFilterOptions();
       renderFileBadges();
       recomputeAndRender();
@@ -1542,7 +1580,6 @@
         .replace(/"/g, '&quot;');
     }
 
-    // Initialize with empty state ready for upload or sample button
     recomputeAndRender();
   </script>
 </body>
