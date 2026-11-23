@@ -37,7 +37,7 @@
       text-transform: uppercase;
     }
 
-    /* Exact US Letter Landscape Certificate Canvas (11in x 8.5in = 1056px x 816px @ 96dpi) */
+    /* Base Certificate Canvas (Designed at 1056px x 816px for crisp scaling to 2-up Letter Portrait 8.5in x 5.5in) */
     .cert-canvas {
       width: 1056px;
       height: 816px;
@@ -145,15 +145,17 @@
       font-weight: 700;
     }
 
-    /* Full-Bleed Zero-Margin Print Rules (Hides browser URL/date/page text & prevents bottom cut-off) */
+    /* =====================================================================
+       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in)
+       Each half-sheet slot = 8.5in wide x 5.48in tall (Scale = 816/1056 = 0.7727)
+       ===================================================================== */
     @page {
-      size: letter landscape;
+      size: letter portrait;
       margin: 0 !important;
     }
 
     @media print {
       html, body {
-        width: 11in !important;
         margin: 0 !important;
         padding: 0 !important;
         background: #ffffff !important;
@@ -163,6 +165,11 @@
       .no-print {
         display: none !important;
       }
+
+      /* Official Summary Sheet Print */
+      body:not(.printing-cert) {
+        width: 8.5in !important;
+      }
       .print-only-container {
         display: block !important;
         padding: 0.35in !important;
@@ -170,38 +177,67 @@
         border: none !important;
         box-shadow: none !important;
       }
+
+      /* 2-Up Letter Portrait Certificate Print */
+      body.printing-cert {
+        width: 8.5in !important;
+      }
       body.printing-cert #app-shell {
         display: none !important;
       }
       body.printing-cert #cert-print-staging {
         display: block !important;
+        width: 8.5in !important;
         margin: 0 !important;
         padding: 0 !important;
       }
-      .cert-page-break {
-        page-break-after: always;
-        break-after: page;
-      }
-      .cert-page-break:last-child {
-        page-break-after: auto;
-        break-after: auto;
-      }
-      .cert-canvas {
-        box-shadow: none !important;
-        width: 11in !important;
-        height: 8.48in !important;
+
+      .letter-portrait-sheet {
+        width: 8.5in !important;
+        height: 10.96in !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
         margin: 0 !important;
         padding: 0 !important;
         overflow: hidden !important;
-        page-break-inside: avoid !important;
-        break-inside: avoid !important;
+        page-break-after: always;
+        break-after: page;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+      .letter-portrait-sheet:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+
+      .cert-half-slot {
+        width: 8.5in !important;
+        height: 5.48in !important;
+        position: relative !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
+      }
+      .cert-half-slot:first-child {
+        border-bottom: 1px dashed #cbd5e1 !important; /* Subtle cut guide between top & bottom certificate */
+      }
+
+      .cert-half-slot .cert-canvas {
+        width: 1056px !important;
+        height: 816px !important;
+        transform: scale(0.772727, 0.6446) !important;
+        transform-origin: top left !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- Staging area exclusively for Single / Batch Certificate Printing -->
+  <!-- Staging area exclusively for 2-Up Letter Portrait Certificate Printing -->
   <div id="cert-print-staging" class="hidden"></div>
 
   <!-- Main Application Shell -->
@@ -332,7 +368,7 @@
             <span>🖨️</span> Official Printed Copy
           </button>
           <button id="tab-btn-certificate" onclick="switchTab('certificate')" class="px-3 py-2.5 text-sm text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-            <span>🎓</span> Certificate of Recognition
+            <span>🎓</span> Certificate of Recognition (2-Up Portrait)
           </button>
         </nav>
 
@@ -356,7 +392,7 @@
               <option value="WITH HONORS">With Honors (89.5–94)</option>
             </select>
             <button onclick="printAllCertificates()" class="px-3 py-1.5 rounded-lg bg-[#0f4c29] hover:bg-[#0b3b20] text-white text-xs font-semibold transition">
-              🖨️ Print All Certificates
+              🖨️ Print All (2 per Letter Portrait)
             </button>
           </div>
         </div>
@@ -500,14 +536,14 @@
         </div>
       </section>
 
-      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION (US LETTER 11" x 8.5") -->
+      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION (2-UP LETTER PORTRAIT 8.5" x 11") -->
       <section id="panel-certificate" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6 space-y-5">
         <!-- Studio Controls Bar -->
         <div class="no-print bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
-              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — Text Editor (US Letter 11" × 8.5")</h2>
-              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it.</p>
+              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — 2 Certificates per US Letter Portrait (8.5" × 11")</h2>
+              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 certificates stacked per Letter Portrait sheet.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <button onclick="prevCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">◀ Prev</button>
@@ -564,16 +600,16 @@
             </div>
             <div class="flex items-center gap-2">
               <button onclick="printSingleCertificate()" class="px-4 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition shadow-sm">
-                🖨️ Print This Certificate
+                🖨️ Print Current Pair (2-Up Portrait)
               </button>
               <button onclick="printAllCertificates()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition shadow-sm">
-                📚 Batch Print All Honors
+                📚 Batch Print All (2 per Letter Portrait)
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Exact Certificate Design Canvas (US Letter Landscape: 1056px x 816px) -->
+        <!-- Exact Certificate Design Canvas Preview -->
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
@@ -590,7 +626,7 @@
                 </g>
               </svg>
 
-              <!-- ALL FOUR CORNER RIBBONS IN ONE EXACT VECTOR LAYER (1056 x 816 Letter) -->
+              <!-- ALL FOUR CORNER RIBBONS IN ONE EXACT VECTOR LAYER -->
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="goldTL" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -646,7 +682,7 @@
                 <polygon points="0,680 312,816 0,816" fill="url(#greenBot)" />
               </svg>
 
-              <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails (Exact match) -->
+              <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails -->
               <div class="absolute top-3 right-5 w-[180px] h-[220px] flex flex-col items-center select-none pointer-events-none">
                 <svg class="w-[180px] h-[220px]" viewBox="0 0 180 220">
                   <defs>
@@ -1261,7 +1297,7 @@
     }
 
     // =========================================================================
-    // CERTIFICATE STUDIO & FULL-BLEED SINGLE/BATCH PRINTING
+    // CERTIFICATE STUDIO & 2-UP LETTER PORTRAIT PRINTING (8.5" x 11")
     // =========================================================================
     function populateCertStudentDropdown(list) {
       const select = document.getElementById('cert-student-select');
@@ -1396,6 +1432,19 @@
       reader.readAsDataURL(file);
     }
 
+    function buildCertificateCloneForStudent(template, st) {
+      const clone = template.cloneNode(true);
+      clone.removeAttribute('id');
+      if (st) {
+        clone.querySelector('#cert-recipient-name').textContent = formatNameForCertificate(st.name);
+        clone.querySelector('#cert-honor-tier').textContent = formatHonorScriptTitle(st.remarks);
+        clone.querySelector('#cert-section').textContent = titleCaseName(st.section);
+        clone.querySelector('#cert-average').textContent = formatCertAverage(st.activeAvg);
+        clone.querySelector('#cert-adviser-name').textContent = getAdviserForSection(st.section);
+      }
+      return clone;
+    }
+
     function cleanupAfterPrint() {
       document.body.classList.remove('printing-cert');
       document.getElementById('cert-print-staging').innerHTML = '';
@@ -1404,10 +1453,27 @@
 
     function printSingleCertificate() {
       const staging = document.getElementById('cert-print-staging');
-      const activeCert = document.getElementById('active-certificate').cloneNode(true);
-      activeCert.removeAttribute('id');
+      const template = document.getElementById('active-certificate');
+
+      const sheet = document.createElement('div');
+      sheet.className = 'letter-portrait-sheet';
+
+      // Top slot: currently displayed certificate
+      const topSlot = document.createElement('div');
+      topSlot.className = 'cert-half-slot';
+      topSlot.appendChild(buildCertificateCloneForStudent(template, null));
+      sheet.appendChild(topSlot);
+
+      // Bottom slot: next honor student if available (saves paper!), otherwise clean blank slot
+      const bottomSlot = document.createElement('div');
+      bottomSlot.className = 'cert-half-slot';
+      if (includedList.length > 1 && includedList[currentCertIndex + 1]) {
+        bottomSlot.appendChild(buildCertificateCloneForStudent(template, includedList[currentCertIndex + 1]));
+      }
+      sheet.appendChild(bottomSlot);
+
       staging.innerHTML = '';
-      staging.appendChild(activeCert);
+      staging.appendChild(sheet);
 
       document.body.classList.add('printing-cert');
       requestAnimationFrame(() => {
@@ -1424,17 +1490,25 @@
       const template = document.getElementById('active-certificate');
       const frag = document.createDocumentFragment();
 
-      includedList.forEach((st) => {
-        const clone = template.cloneNode(true);
-        clone.removeAttribute('id');
-        clone.classList.add('cert-page-break');
-        clone.querySelector('#cert-recipient-name').textContent = formatNameForCertificate(st.name);
-        clone.querySelector('#cert-honor-tier').textContent = formatHonorScriptTitle(st.remarks);
-        clone.querySelector('#cert-section').textContent = titleCaseName(st.section);
-        clone.querySelector('#cert-average').textContent = formatCertAverage(st.activeAvg);
-        clone.querySelector('#cert-adviser-name').textContent = getAdviserForSection(st.section);
-        frag.appendChild(clone);
-      });
+      // Pack 2 certificates per US Letter Portrait page (8.5in x 11in)
+      for (let i = 0; i < includedList.length; i += 2) {
+        const sheet = document.createElement('div');
+        sheet.className = 'letter-portrait-sheet';
+
+        const topSlot = document.createElement('div');
+        topSlot.className = 'cert-half-slot';
+        topSlot.appendChild(buildCertificateCloneForStudent(template, includedList[i]));
+        sheet.appendChild(topSlot);
+
+        const bottomSlot = document.createElement('div');
+        bottomSlot.className = 'cert-half-slot';
+        if (includedList[i + 1]) {
+          bottomSlot.appendChild(buildCertificateCloneForStudent(template, includedList[i + 1]));
+        }
+        sheet.appendChild(bottomSlot);
+
+        frag.appendChild(sheet);
+      }
 
       staging.innerHTML = '';
       staging.appendChild(frag);
