@@ -146,16 +146,17 @@
     }
 
     /* =====================================================================
-       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in)
-       Each half-sheet slot = 8.5in wide x 5.48in tall (Scale = 816/1056 = 0.7727)
+       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in) — EDGE TO EDGE
        ===================================================================== */
     @page {
-      size: letter portrait;
+      size: 8.5in 11in;
       margin: 0 !important;
     }
 
     @media print {
       html, body {
+        width: 8.5in !important;
+        height: 11in !important;
         margin: 0 !important;
         padding: 0 !important;
         background: #ffffff !important;
@@ -167,9 +168,6 @@
       }
 
       /* Official Summary Sheet Print */
-      body:not(.printing-cert) {
-        width: 8.5in !important;
-      }
       .print-only-container {
         display: block !important;
         padding: 0.35in !important;
@@ -179,9 +177,6 @@
       }
 
       /* 2-Up Letter Portrait Certificate Print */
-      body.printing-cert {
-        width: 8.5in !important;
-      }
       body.printing-cert #app-shell {
         display: none !important;
       }
@@ -194,11 +189,9 @@
 
       .letter-portrait-sheet {
         width: 8.5in !important;
-        height: 10.96in !important;
+        height: 11in !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: flex-start !important;
-        align-items: center !important;
         margin: 0 !important;
         padding: 0 !important;
         overflow: hidden !important;
@@ -214,20 +207,26 @@
 
       .cert-half-slot {
         width: 8.5in !important;
-        height: 5.48in !important;
+        height: 5.5in !important;
         position: relative !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .cert-half-slot:first-child {
-        border-bottom: 1px dashed #cbd5e1 !important; /* Subtle cut guide between top & bottom certificate */
+        border-bottom: 1px dashed #94a3b8 !important; /* Subtle cut line at exact 5.5in midpoint */
       }
 
+      /* Exact Edge-to-Edge Fit: 1056px * 0.772727 = 816px (8.5in), 816px * 0.647059 = 528px (5.5in) */
       .cert-half-slot .cert-canvas {
         width: 1056px !important;
         height: 816px !important;
-        transform: scale(0.772727, 0.6446) !important;
-        transform-origin: top left !important;
+        transform: scale(0.772727, 0.647059) !important;
+        transform-origin: 0 0 !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
         box-shadow: none !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -543,7 +542,7 @@
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
               <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — 2 Certificates per US Letter Portrait (8.5" × 11")</h2>
-              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 certificates stacked per Letter Portrait sheet.</p>
+              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 certificates stacked edge-to-edge per Letter Portrait sheet.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
               <button onclick="prevCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">◀ Prev</button>
