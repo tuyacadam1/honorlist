@@ -145,35 +145,38 @@
       font-weight: 700;
     }
 
-    /* Fast, Non-Hanging Print Media Rules */
+    /* Full-Bleed Zero-Margin Print Rules (Hides browser URL/date/page text & prevents bottom cut-off) */
+    @page {
+      size: letter landscape;
+      margin: 0 !important;
+    }
+
     @media print {
-      body {
-        background: #ffffff !important;
+      html, body {
+        width: 11in !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: #ffffff !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
       }
       .no-print {
         display: none !important;
       }
       .print-only-container {
         display: block !important;
-        padding: 0 !important;
+        padding: 0.35in !important;
         margin: 0 !important;
+        border: none !important;
         box-shadow: none !important;
-      }
-      @page {
-        size: letter landscape;
-        margin: 0.35in;
-      }
-      body.printing-cert @page {
-        size: letter landscape;
-        margin: 0;
       }
       body.printing-cert #app-shell {
         display: none !important;
       }
       body.printing-cert #cert-print-staging {
         display: block !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
       .cert-page-break {
         page-break-after: always;
@@ -186,9 +189,12 @@
       .cert-canvas {
         box-shadow: none !important;
         width: 11in !important;
-        height: 8.5in !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
+        height: 8.48in !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
     }
   </style>
@@ -571,7 +577,7 @@
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
-              <!-- Marble Background & Lightweight Gold-Beige Marble Veining (No slow SVG blur filter) -->
+              <!-- Marble Background & Lightweight Gold-Beige Marble Veining -->
               <div class="cert-marble-layer"></div>
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
                 <g fill="none" stroke-linecap="round">
@@ -1255,7 +1261,7 @@
     }
 
     // =========================================================================
-    // CERTIFICATE STUDIO & FAST NON-HANGING PRINTING
+    // CERTIFICATE STUDIO & FULL-BLEED SINGLE/BATCH PRINTING
     // =========================================================================
     function populateCertStudentDropdown(list) {
       const select = document.getElementById('cert-student-select');
@@ -1399,6 +1405,7 @@
     function printSingleCertificate() {
       const staging = document.getElementById('cert-print-staging');
       const activeCert = document.getElementById('active-certificate').cloneNode(true);
+      activeCert.removeAttribute('id');
       staging.innerHTML = '';
       staging.appendChild(activeCert);
 
