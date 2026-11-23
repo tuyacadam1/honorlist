@@ -37,10 +37,10 @@
       text-transform: uppercase;
     }
 
-    /* Exact Certificate of Recognition Canvas (1056 x 747 matching 1024x724 ratio) */
+    /* Exact US Letter Landscape Certificate Canvas (11in x 8.5in = 1056px x 816px @ 96dpi) */
     .cert-canvas {
       width: 1056px;
-      height: 748px;
+      height: 816px;
       position: relative;
       overflow: hidden;
       background-color: #ffffff;
@@ -48,7 +48,7 @@
       user-select: text;
     }
 
-    /* Rich White & Gold-Beige Marble Texture */
+    /* White & Gold-Tan Marble Texture */
     .cert-marble-layer {
       position: absolute;
       inset: 0;
@@ -56,17 +56,17 @@
       height: 100%;
       pointer-events: none;
       background:
-        radial-gradient(ellipse at 12% 35%, rgba(218, 198, 152, 0.32) 0%, transparent 42%),
-        radial-gradient(ellipse at 85% 22%, rgba(212, 188, 138, 0.28) 0%, transparent 38%),
-        radial-gradient(ellipse at 48% 55%, rgba(226, 208, 168, 0.24) 0%, transparent 50%),
-        radial-gradient(ellipse at 78% 82%, rgba(214, 192, 144, 0.30) 0%, transparent 45%),
-        radial-gradient(ellipse at 22% 85%, rgba(220, 200, 156, 0.26) 0%, transparent 40%),
-        linear-gradient(125deg, #ffffff 0%, #fcfaf5 35%, #f7f1e3 68%, #ffffff 100%);
+        radial-gradient(ellipse at 14% 38%, rgba(218, 198, 152, 0.34) 0%, transparent 44%),
+        radial-gradient(ellipse at 86% 26%, rgba(212, 188, 138, 0.30) 0%, transparent 40%),
+        radial-gradient(ellipse at 48% 54%, rgba(226, 208, 168, 0.25) 0%, transparent 52%),
+        radial-gradient(ellipse at 76% 80%, rgba(214, 192, 144, 0.32) 0%, transparent 46%),
+        radial-gradient(ellipse at 24% 82%, rgba(220, 200, 156, 0.28) 0%, transparent 42%),
+        linear-gradient(125deg, #ffffff 0%, #fcfaf5 36%, #f7f1e3 68%, #ffffff 100%);
     }
 
     .cert-school-title {
       font-family: 'Libre Baskerville', 'Times New Roman', serif;
-      color: #0f4722;
+      color: #0b4620;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
@@ -85,17 +85,17 @@
       font-family: 'Libre Baskerville', 'Cormorant Garamond', Georgia, serif;
       font-weight: 700;
       color: #d6b628;
-      -webkit-text-stroke: 1.9px #0b3819;
+      -webkit-text-stroke: 2px #093618;
       paint-order: stroke fill;
-      text-shadow: 0px 2px 1px rgba(11, 56, 25, 0.22);
+      text-shadow: 0px 2px 1px rgba(9, 54, 24, 0.22);
       letter-spacing: -0.01em;
     }
     .cert-honor-script {
       font-family: 'Great Vibes', 'Alex Brush', cursive;
       color: #d2b224;
-      -webkit-text-stroke: 1.5px #0b3819;
+      -webkit-text-stroke: 1.6px #093618;
       paint-order: stroke fill;
-      text-shadow: 0px 2px 2px rgba(11, 56, 25, 0.2);
+      text-shadow: 0px 2px 2px rgba(9, 54, 24, 0.2);
     }
     .cert-student-name {
       font-family: 'Alex Brush', 'Great Vibes', cursive;
@@ -109,7 +109,7 @@
     }
     .cert-blank-line {
       display: inline-block;
-      border-bottom: 1.8px solid #0b3819;
+      border-bottom: 1.8px solid #093618;
       padding: 0 14px;
       min-width: 64px;
       text-align: center;
@@ -118,7 +118,7 @@
     }
     .cert-sign-name {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      color: #0b3819;
+      color: #093618;
       font-weight: 700;
     }
     .cert-sign-role {
@@ -494,13 +494,13 @@
         </div>
       </section>
 
-      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION -->
+      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION (US LETTER 11" x 8.5") -->
       <section id="panel-certificate" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6 space-y-5">
         <!-- Studio Controls Bar -->
         <div class="no-print bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
-              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — Text Editor</h2>
+              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — Text Editor (US Letter 11" × 8.5")</h2>
               <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it.</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
@@ -567,31 +567,30 @@
           </div>
         </div>
 
-        <!-- Exact Certificate Design Canvas -->
+        <!-- Exact Certificate Design Canvas (US Letter Landscape: 1056px x 816px) -->
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
-              <!-- Marble Background & Realistic Marble Veining -->
+              <!-- Marble Background & Realistic Gold-Beige Marble Veining -->
               <div class="cert-marble-layer"></div>
-              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 748" preserveAspectRatio="none">
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
                 <defs>
                   <filter id="marbleBlur" x="-10%" y="-10%" width="120%" height="120%">
                     <feGaussianBlur stdDeviation="2.2" />
                   </filter>
                 </defs>
-                <!-- Soft Gold-Tan Marble Veins -->
                 <g filter="url(#marbleBlur)" fill="none" stroke-linecap="round">
-                  <path d="M-20,180 C120,165 210,235 340,190 C460,150 530,85 690,115 C820,140 930,90 1080,60" stroke="#dcc796" stroke-width="5" opacity="0.45"/>
-                  <path d="M-10,192 C130,178 220,248 350,202 C470,162 540,98 700,128" stroke="#c3a463" stroke-width="1.8" opacity="0.35"/>
-                  <path d="M90,760 C190,640 270,580 395,565 C510,550 595,465 745,440 C880,418 965,360 1075,310" stroke="#dcc796" stroke-width="6" opacity="0.48"/>
-                  <path d="M115,760 C215,645 290,590 412,575 C525,560 610,478 758,452" stroke="#bfa05d" stroke-width="2" opacity="0.38"/>
-                  <path d="M-25,470 C95,495 165,575 290,610 C420,645 530,695 675,745" stroke="#e2cfa5" stroke-width="4.5" opacity="0.42"/>
-                  <path d="M430,-10 C475,95 450,185 515,275 C575,355 695,385 810,495 C895,575 975,620 1070,660" stroke="#dfd0ac" stroke-width="4" opacity="0.35"/>
+                  <path d="M-20,195 C120,180 210,255 340,208 C460,165 530,95 690,125 C820,152 930,98 1080,65" stroke="#dcc796" stroke-width="5.5" opacity="0.48"/>
+                  <path d="M-10,208 C130,192 220,268 350,220 C470,178 540,108 700,138" stroke="#c3a463" stroke-width="2" opacity="0.38"/>
+                  <path d="M90,825 C190,695 270,630 395,612 C510,595 595,505 745,478 C880,454 965,392 1075,338" stroke="#dcc796" stroke-width="6.5" opacity="0.5"/>
+                  <path d="M115,825 C215,700 290,640 412,622 C525,606 610,518 758,490" stroke="#bfa05d" stroke-width="2.2" opacity="0.4"/>
+                  <path d="M-25,510 C95,538 165,625 290,662 C420,700 530,755 675,810" stroke="#e2cfa5" stroke-width="4.8" opacity="0.44"/>
+                  <path d="M430,-10 C475,102 450,200 515,298 C575,385 695,418 810,538 C895,625 975,675 1070,718" stroke="#dfd0ac" stroke-width="4.2" opacity="0.38"/>
                 </g>
               </svg>
 
-              <!-- Top-Left Forest Green & Metallic Gold Corner Geometric Ribbon (Exact match) -->
-              <svg class="absolute top-0 left-0 w-[235px] h-[235px] pointer-events-none" viewBox="0 0 235 235">
+              <!-- ALL FOUR CORNER RIBBONS IN ONE EXACT VECTOR LAYER (1056 x 816 Letter) -->
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="goldTL" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stop-color="#f7e37b"/>
@@ -602,18 +601,11 @@
                     <stop offset="0%" stop-color="#062c14"/>
                     <stop offset="100%" stop-color="#0f4c24"/>
                   </linearGradient>
-                </defs>
-                <!-- Secondary vertical/diagonal green & gold step tab underneath -->
-                <polygon points="0,125 40,95 40,192 0,222" fill="url(#goldTL)" />
-                <polygon points="0,130 31,107 31,182 0,205" fill="#09381a" />
-                <!-- Main Top-Left Gold Border & Dark Green Triangle -->
-                <polygon points="0,0 222,0 0,164" fill="url(#goldTL)" />
-                <polygon points="0,0 202,0 0,148" fill="url(#greenTL)" />
-              </svg>
-
-              <!-- Bottom-Left & Bottom-Right Overlapping Chevron Ribbons (Exact match) -->
-              <svg class="absolute bottom-0 left-0 w-full h-[175px] pointer-events-none" viewBox="0 0 1056 175" preserveAspectRatio="none">
-                <defs>
+                  <linearGradient id="goldTR" x1="100%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#f7e37b"/>
+                    <stop offset="50%" stop-color="#d4af37"/>
+                    <stop offset="100%" stop-color="#9c7816"/>
+                  </linearGradient>
                   <linearGradient id="goldBotLeft" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" stop-color="#b58e20"/>
                     <stop offset="45%" stop-color="#f6e27a"/>
@@ -629,18 +621,33 @@
                     <stop offset="100%" stop-color="#062912"/>
                   </linearGradient>
                 </defs>
-                <!-- Right Ribbon Wing (extends to bottom-left) -->
-                <polygon points="1056,12 435,175 1056,175" fill="url(#goldBotRight)" />
-                <polygon points="1056,33 505,175 1056,175" fill="url(#greenBot)" />
 
-                <!-- Left Ribbon Wing (overlapping slightly in front at center valley) -->
-                <polygon points="0,16 575,175 0,175" fill="url(#goldBotLeft)" />
-                <polygon points="0,37 500,175 0,175" fill="url(#greenBot)" />
+                <!-- 1. TOP-LEFT CORNER RIBBON -->
+                <polygon points="0,145 40,115 40,218 0,248" fill="url(#goldTL)" />
+                <polygon points="0,151 31,128 31,208 0,231" fill="#09381a" />
+                <polygon points="0,0 288,0 0,185" fill="url(#goldTL)" />
+                <polygon points="0,0 258,0 0,165" fill="url(#greenTL)" />
+
+                <!-- 2. TOP-RIGHT CORNER RIBBON (Behind Seal) -->
+                <polygon points="1056,0 742,0 1056,195" fill="url(#goldTR)" />
+                <polygon points="1056,0 778,0 1056,172" fill="url(#greenTL)" />
+
+                <!-- 3. LOWER-RIGHT EDGE ACCENT TAB -->
+                <polygon points="1056,608 1016,638 1016,718 1056,688" fill="url(#goldTR)" />
+                <polygon points="1056,617 1025,640 1025,708 1056,685" fill="#09381a" />
+
+                <!-- 4. BOTTOM-RIGHT CHEVRON RIBBON (Low profile so Principal is 100% clear) -->
+                <polygon points="1056,658 688,816 1056,816" fill="url(#goldBotRight)" />
+                <polygon points="1056,680 748,816 1056,816" fill="url(#greenBot)" />
+
+                <!-- 5. BOTTOM-LEFT CHEVRON RIBBON (Low profile so Adviser is 100% clear) -->
+                <polygon points="0,658 372,816 0,816" fill="url(#goldBotLeft)" />
+                <polygon points="0,680 312,816 0,816" fill="url(#greenBot)" />
               </svg>
 
               <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails (Exact match) -->
-              <div class="absolute top-2 right-3 w-[180px] h-[215px] flex flex-col items-center select-none pointer-events-none">
-                <svg class="w-[180px] h-[215px]" viewBox="0 0 180 215">
+              <div class="absolute top-3 right-5 w-[180px] h-[220px] flex flex-col items-center select-none pointer-events-none">
+                <svg class="w-[180px] h-[220px]" viewBox="0 0 180 220">
                   <defs>
                     <radialGradient id="rosetteGreen" cx="45%" cy="35%" r="65%">
                       <stop offset="0%" stop-color="#228b3b"/>
@@ -655,14 +662,14 @@
                   </defs>
 
                   <!-- Left Ribbon Tail (V-notched) -->
-                  <polygon points="48,125 22,192 46,175 64,202 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
-                  <line x1="51" y1="132" x2="31" y2="185" stroke="#d4af37" stroke-width="1.2"/>
-                  <line x1="76" y1="134" x2="61" y2="194" stroke="#d4af37" stroke-width="1.2"/>
+                  <polygon points="48,125 22,196 46,178 64,206 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="51" y1="132" x2="31" y2="188" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="76" y1="134" x2="61" y2="198" stroke="#d4af37" stroke-width="1.2"/>
 
                   <!-- Right Ribbon Tail (V-notched) -->
-                  <polygon points="132,125 158,192 134,175 116,202 98,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
-                  <line x1="129" y1="132" x2="149" y2="185" stroke="#d4af37" stroke-width="1.2"/>
-                  <line x1="104" y1="134" x2="119" y2="194" stroke="#d4af37" stroke-width="1.2"/>
+                  <polygon points="132,125 158,196 134,178 116,206 98,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="129" y1="132" x2="149" y2="188" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="104" y1="134" x2="119" y2="198" stroke="#d4af37" stroke-width="1.2"/>
 
                   <!-- Scalloped Fluted Rosette Outer Edge -->
                   <circle cx="90" cy="82" r="73" fill="url(#rosetteGreen)" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
@@ -687,12 +694,9 @@
 
                   <!-- Inner Gold & Green Crest (Open Book, Torch, Wreath) -->
                   <circle cx="90" cy="82" r="31" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 2"/>
-                  <!-- Laurel Wreath inside crest -->
                   <path d="M68,92 C63,82 65,70 73,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
                   <path d="M112,92 C117,82 115,70 107,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
-                  <!-- Open Book -->
                   <path d="M73,87 Q82,91 90,88 Q98,91 107,87 L105,96 Q98,99 90,96 Q82,99 75,96 Z" fill="#166534"/>
-                  <!-- Torch -->
                   <rect x="88" y="68" width="4" height="20" fill="#a16207"/>
                   <path d="M90,55 C95,61 94,67 90,69 C86,67 85,61 90,55 Z" fill="#eab308"/>
                 </svg>
@@ -701,47 +705,45 @@
               </div>
 
               <!-- Foreground Editable Certificate Text -->
-              <div class="relative z-10 h-full flex flex-col items-center justify-between pt-6 pb-11 px-14 text-center">
+              <div class="relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-[86px] px-14 text-center">
                 <!-- Top Gold Wheat/Laurel Flourish & Header -->
                 <div class="w-full flex flex-col items-center">
-                  <svg class="w-80 h-5 mb-0.5" viewBox="0 0 320 20">
+                  <svg class="w-80 h-5 mb-1" viewBox="0 0 320 20">
                     <line x1="18" y1="10" x2="302" y2="10" stroke="#cfa526" stroke-width="1.6"/>
-                    <!-- Left Chevrons -->
                     <path d="M42,10 L32,4 M57,10 L47,4 M72,10 L62,4 M87,10 L77,4 M102,10 L92,4 M117,10 L107,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
                     <path d="M42,10 L32,16 M57,10 L47,16 M72,10 L62,16 M87,10 L77,16 M102,10 L92,16 M117,10 L107,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
-                    <!-- Right Chevrons -->
                     <path d="M278,10 L288,4 M263,10 L273,4 M248,10 L258,4 M233,10 L243,4 M218,10 L228,4 M203,10 L213,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
                     <path d="M278,10 L288,16 M263,10 L273,16 M248,10 L258,16 M233,10 L243,16 M218,10 L228,16 M203,10 L213,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
                   </svg>
 
-                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[30px] leading-tight">
+                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[31px] leading-tight">
                     GINGOOG CITY COLLEGES INC.
                   </div>
-                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[28px] leading-[1.05]">
+                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[29px] leading-[1.05]">
                     Junior High School Department
                   </div>
-                  <div contenteditable="true" id="cert-address" class="cert-address text-[18px] mt-0.5">
+                  <div contenteditable="true" id="cert-address" class="cert-address text-[18.5px] mt-0.5">
                     Macopa St. Paz Village Brgy. 24-A. 9014 Gingoog City
                   </div>
                 </div>
 
                 <!-- Title & Honor Classification -->
-                <div class="-mt-1">
-                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[50px] leading-[1.05]">
+                <div>
+                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[52px] leading-[1.05]">
                     Certificate of Recognition
                   </div>
-                  <div contenteditable="true" id="cert-honor-tier" class="cert-honor-script text-[68px] leading-[0.88] mt-0.5">
+                  <div contenteditable="true" id="cert-honor-tier" class="cert-honor-script text-[70px] leading-[0.88] mt-1">
                     With Honors
                   </div>
                 </div>
 
                 <!-- Recipient Name & Citation Paragraph -->
-                <div class="w-full max-w-4xl flex flex-col items-center -mt-1">
-                  <div contenteditable="true" id="cert-recipient-name" class="cert-student-name text-[76px] px-8 border-b-[1.8px] border-[#0b3819] min-w-[760px]">
+                <div class="w-full max-w-4xl flex flex-col items-center">
+                  <div contenteditable="true" id="cert-recipient-name" class="cert-student-name text-[78px] px-8 border-b-[1.8px] border-[#093618] min-w-[760px]">
                     Joannah Faye V. Nadala
                   </div>
 
-                  <div class="cert-body-text text-[26px] leading-[1.32] mt-2">
+                  <div class="cert-body-text text-[26.5px] leading-[1.35] mt-2.5">
                     of Grade <span contenteditable="true" id="cert-grade" class="cert-blank-line min-w-[60px]">7</span>
                     Section <span contenteditable="true" id="cert-section" class="cert-blank-line min-w-[165px]">Gemelina</span>
                     has obtained a General<br/>
@@ -750,14 +752,14 @@
                     S.Y. <span contenteditable="true" id="cert-sy" class="font-bold">2026-2027</span>.
                   </div>
 
-                  <div class="cert-body-text italic text-[21px] mt-3">
+                  <div class="cert-body-text italic text-[21.5px] mt-3.5">
                     Awarded this <span contenteditable="true" id="cert-award-date">29<sup>th</sup> day of September 2026</span>
                     <span contenteditable="true" id="cert-program-text">during its Reading of Honors program.</span>
                   </div>
                 </div>
 
-                <!-- Bottom Signatories -->
-                <div class="w-full max-w-3xl grid grid-cols-2 gap-16 pt-1">
+                <!-- Bottom Signatories (100% Inside Clean White Area Above Bottom Ribbons) -->
+                <div class="w-full max-w-2xl grid grid-cols-2 gap-12 pt-1">
                   <div class="flex flex-col items-center">
                     <div contenteditable="true" id="cert-adviser-name" class="cert-sign-name text-[20px] tracking-wide uppercase">
                       ARNOLD N. DELA PEÑA
