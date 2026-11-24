@@ -17,7 +17,6 @@
       color: #0f172a;
     }
 
-    /* Official Summary Sheet Typography */
     .official-sheet {
       font-family: "Times New Roman", Times, Georgia, serif;
       background: #ffffff;
@@ -37,7 +36,6 @@
       text-transform: uppercase;
     }
 
-    /* Base Certificate Canvas */
     .cert-canvas {
       width: 1056px;
       height: 816px;
@@ -48,7 +46,6 @@
       user-select: text;
     }
 
-    /* White & Gold-Tan Marble Texture */
     .cert-marble-layer {
       position: absolute;
       inset: 0;
@@ -65,24 +62,24 @@
     }
 
     .cert-school-title {
-      font-family: 'Libre Baskerville', 'Times New Roman', serif;
+      font-family: 'Libre Baskerville', 'Times New Roman', Georgia, serif;
       color: #0b4620;
       font-weight: 700;
       letter-spacing: -0.01em;
     }
     .cert-dept-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       color: #166534;
       font-weight: 700;
     }
     .cert-address {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       color: #111827;
       font-style: italic;
       font-weight: 600;
     }
     .cert-main-heading {
-      font-family: 'Libre Baskerville', 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Libre Baskerville', 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       font-weight: 700;
       color: #d6b628;
       -webkit-text-stroke: 2px #093618;
@@ -91,19 +88,26 @@
       letter-spacing: -0.01em;
     }
     .cert-honor-script {
-      font-family: 'Great Vibes', 'Alex Brush', cursive;
+      font-family: 'Great Vibes', 'Alex Brush', 'Edwardian Script ITC', 'Kunstler Script', 'Snell Roundhand', 'Brush Script MT', 'Lucida Calligraphy', 'Segoe Script', cursive;
       color: #d2b224;
       -webkit-text-stroke: 1.6px #093618;
       paint-order: stroke fill;
       text-shadow: 0px 2px 2px rgba(9, 54, 24, 0.2);
+      white-space: nowrap !important;
     }
     .cert-student-name {
-      font-family: 'Alex Brush', 'Great Vibes', cursive;
+      font-family: 'Alex Brush', 'Great Vibes', 'Edwardian Script ITC', 'Kunstler Script', 'Snell Roundhand', 'Brush Script MT', 'Lucida Calligraphy', 'Segoe Script', cursive;
       color: #080a09;
-      line-height: 0.96;
+      line-height: 1.02;
+      white-space: nowrap !important;
+      overflow: visible;
+      width: 900px;
+      max-width: 900px;
+      text-align: center;
+      display: block;
     }
     .cert-body-text {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       color: #0f172a;
       font-weight: 600;
     }
@@ -117,12 +121,12 @@
       line-height: 1.02;
     }
     .cert-sign-name {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       color: #093618;
       font-weight: 700;
     }
     .cert-sign-role {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
       color: #111827;
       font-style: italic;
       font-weight: 600;
@@ -145,9 +149,6 @@
       font-weight: 700;
     }
 
-    /* =====================================================================
-       2 CERTIFICATES PER US LETTER PORTRAIT PAGE (8.5in x 11in) — 100% FULL FIT
-       ===================================================================== */
     @page {
       size: 8.5in 11in;
       margin: 0 !important;
@@ -166,8 +167,6 @@
       .no-print {
         display: none !important;
       }
-
-      /* Official Summary Sheet Print */
       .print-only-container {
         display: block !important;
         padding: 0.35in !important;
@@ -175,8 +174,6 @@
         border: none !important;
         box-shadow: none !important;
       }
-
-      /* 2-Up Letter Portrait Certificate Print */
       body.printing-cert #app-shell {
         display: none !important;
       }
@@ -186,7 +183,6 @@
         margin: 0 !important;
         padding: 0 !important;
       }
-
       .letter-portrait-sheet {
         width: 100vw !important;
         height: 100vh !important;
@@ -204,7 +200,6 @@
         page-break-after: auto;
         break-after: auto;
       }
-
       .cert-half-slot {
         width: 100% !important;
         height: 50% !important;
@@ -220,8 +215,6 @@
       .cert-half-slot:first-child {
         border-bottom: 1px dashed #94a3b8 !important;
       }
-
-      /* Full 816px height preserved at 0.646 zoom (= 527px = exact half of 1056px Letter Portrait) */
       .cert-half-slot .cert-canvas {
         width: 1056px !important;
         height: 816px !important;
@@ -231,23 +224,21 @@
         padding: 0 !important;
         flex-shrink: 0 !important;
       }
+      .cert-student-name {
+        white-space: nowrap !important;
+      }
     }
   </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-  <!-- Staging area exclusively for 2-Up Letter Portrait Certificate Printing -->
   <div id="cert-print-staging" class="hidden"></div>
 
-  <!-- Main Application Shell -->
   <div id="app-shell" class="flex-1 flex flex-col">
-    <!-- Top Header -->
     <header class="no-print bg-gradient-to-r from-[#0b3b20] via-[#0f4c29] to-[#14532d] text-white shadow-md">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-full bg-amber-400/20 border-2 border-amber-300 flex items-center justify-center text-amber-300 font-bold text-lg shadow-inner">
-            GCC
-          </div>
+          <div class="w-11 h-11 rounded-full bg-amber-400/20 border-2 border-amber-300 flex items-center justify-center text-amber-300 font-bold text-lg shadow-inner">GCC</div>
           <div>
             <h1 class="text-lg sm:text-xl font-bold tracking-tight">Honors List &amp; Certificate Recognition System</h1>
             <p class="text-xs text-emerald-100/90">Gingoog City Colleges, Inc. • Automatic Section Merger, Ranking &amp; Printable Certificates</p>
@@ -257,20 +248,16 @@
           <button onclick="loadBuiltInSampleData()" class="px-3.5 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-semibold text-xs sm:text-sm transition shadow-sm flex items-center gap-1.5">
             <span>⚡</span> Load Sample (Tanguile &amp; Talisay)
           </button>
-          <button onclick="clearAllData()" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition">
-            Reset
-          </button>
+          <button onclick="clearAllData()" class="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition">Reset</button>
         </div>
       </div>
     </header>
 
-    <!-- Main Container -->
     <main class="max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 flex-1 space-y-6">
 
       <!-- Upload & Criteria Control Bar -->
       <section class="no-print bg-white rounded-xl shadow-sm border border-slate-200 p-5">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
-          <!-- File Dropzone -->
           <div class="lg:col-span-6">
             <label for="file-input" id="drop-zone" class="flex flex-col items-center justify-center border-2 border-dashed border-emerald-600/40 hover:border-emerald-600 bg-emerald-50/40 hover:bg-emerald-50/80 rounded-xl p-5 cursor-pointer transition text-center">
               <svg class="w-8 h-8 text-emerald-700 mb-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
@@ -283,7 +270,6 @@
             <div id="uploaded-files-badges" class="flex flex-wrap gap-2 mt-2.5"></div>
           </div>
 
-          <!-- Honors Criteria & Average Mode -->
           <div class="lg:col-span-6 space-y-3">
             <div class="bg-slate-50 rounded-lg p-3.5 border border-slate-200/80">
               <div class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Honors Classification Brackets</div>
@@ -452,7 +438,7 @@
         </div>
       </section>
 
-      <!-- TAB 3: OFFICIAL PRINTED COPY (MATCHING GRADE 10 HONORS.XLSX) -->
+      <!-- TAB 3: OFFICIAL PRINTED COPY -->
       <section id="panel-printsheet" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6">
         <div class="no-print mb-4 pb-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div class="text-xs text-slate-600">
@@ -468,7 +454,6 @@
           </div>
         </div>
 
-        <!-- Printable Official Document -->
         <div id="official-print-area" class="print-only-container official-sheet max-w-5xl mx-auto p-4 sm:p-6 border border-slate-300">
           <div class="flex justify-between items-start mb-4">
             <div>
@@ -506,7 +491,6 @@
             </table>
           </div>
 
-          <!-- Signatories Block matching Grade 10 Honors.xlsx -->
           <div class="mt-8 text-xs">
             <div class="font-bold mb-6">PREPARED BY:</div>
             <div class="grid grid-cols-2 gap-8 text-center mb-8">
@@ -535,9 +519,8 @@
         </div>
       </section>
 
-      <!-- TAB 4: EXACT EDITABLE CERTIFICATE OF RECOGNITION (2-UP LETTER PORTRAIT 8.5" x 11") -->
+      <!-- TAB 4: CERTIFICATE OF RECOGNITION (2-UP LETTER PORTRAIT 8.5" x 11") -->
       <section id="panel-certificate" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6 space-y-5">
-        <!-- Studio Controls Bar -->
         <div class="no-print bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
             <div>
@@ -608,11 +591,9 @@
           </div>
         </div>
 
-        <!-- Exact Certificate Design Canvas Preview -->
         <div class="overflow-x-auto pb-4 flex justify-center">
           <div id="certificate-template-wrapper">
             <div id="active-certificate" class="cert-canvas">
-              <!-- Marble Background & Lightweight Gold-Beige Marble Veining -->
               <div class="cert-marble-layer"></div>
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
                 <g fill="none" stroke-linecap="round">
@@ -625,54 +606,36 @@
                 </g>
               </svg>
 
-              <!-- ALL FOUR CORNER RIBBONS USING SOLID FILLS (100% PRINT SAFE) -->
+              <!-- 4 Corner Ribbons with Solid Print-Safe Fills -->
               <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
-                <!-- 1. TOP-LEFT CORNER RIBBON -->
                 <polygon points="0,145 40,115 40,218 0,248" fill="#d4af37" />
                 <polygon points="0,151 31,128 31,208 0,231" fill="#09381a" />
                 <polygon points="0,0 288,0 0,185" fill="#d4af37" />
                 <polygon points="0,0 258,0 0,165" fill="#0b3e1d" />
-
-                <!-- 2. TOP-RIGHT CORNER RIBBON (Behind Seal) -->
                 <polygon points="1056,0 742,0 1056,195" fill="#d4af37" />
                 <polygon points="1056,0 778,0 1056,172" fill="#0b3e1d" />
-
-                <!-- 3. LOWER-RIGHT EDGE ACCENT TAB -->
                 <polygon points="1056,608 1016,638 1016,718 1056,688" fill="#d4af37" />
                 <polygon points="1056,617 1025,640 1025,708 1056,685" fill="#09381a" />
-
-                <!-- 4. BOTTOM-RIGHT CHEVRON RIBBON -->
                 <polygon points="1056,658 688,816 1056,816" fill="#d4af37" />
                 <polygon points="1056,680 748,816 1056,816" fill="#09381a" />
-
-                <!-- 5. BOTTOM-LEFT CHEVRON RIBBON -->
                 <polygon points="0,658 372,816 0,816" fill="#d4af37" />
                 <polygon points="0,680 312,816 0,816" fill="#09381a" />
               </svg>
 
-              <!-- Top-Right Scalloped Rosette Seal with 4-Pointed Ribbon Tails -->
+              <!-- Scalloped Rosette Seal -->
               <div class="absolute top-3 right-5 w-[180px] h-[220px] flex flex-col items-center select-none pointer-events-none">
                 <svg class="w-[180px] h-[220px]" viewBox="0 0 180 220">
-                  <!-- Left Ribbon Tail (V-notched) -->
                   <polygon points="48,125 22,196 46,178 64,206 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
                   <line x1="51" y1="132" x2="31" y2="188" stroke="#d4af37" stroke-width="1.2"/>
                   <line x1="76" y1="134" x2="61" y2="198" stroke="#d4af37" stroke-width="1.2"/>
-
-                  <!-- Right Ribbon Tail (V-notched) -->
                   <polygon points="132,125 158,196 134,178 116,206 98,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
                   <line x1="129" y1="132" x2="149" y2="188" stroke="#d4af37" stroke-width="1.2"/>
                   <line x1="104" y1="134" x2="119" y2="198" stroke="#d4af37" stroke-width="1.2"/>
-
-                  <!-- Scalloped Fluted Rosette Outer Edge -->
                   <circle cx="90" cy="82" r="73" fill="#115e26" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
                   <circle cx="90" cy="82" r="67" fill="#115e26" stroke="#f6e27a" stroke-width="1.5"/>
                   <circle cx="90" cy="82" r="61" fill="#d4af37" />
-
-                  <!-- White Circular Ring for School Name -->
                   <circle cx="90" cy="82" r="57" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
                   <circle cx="90" cy="82" r="36" fill="#ffffff" stroke="#14532d" stroke-width="1.8"/>
-
-                  <!-- Curved Circular Seal Typography -->
                   <defs>
                     <path id="gccTopArc" d="M 44,82 A 46,46 0 1,1 136,82" />
                     <path id="gccBotArc" d="M 45,87 A 45,45 0 0,0 135,87" />
@@ -683,8 +646,6 @@
                   <text font-size="8.8" font-weight="800" font-family="Times New Roman, serif" fill="#14532d" letter-spacing="1.5">
                     <textPath href="#gccBotArc" startOffset="50%" text-anchor="middle">• 1967 •</textPath>
                   </text>
-
-                  <!-- Inner Gold & Green Crest (Open Book, Torch, Wreath) -->
                   <circle cx="90" cy="82" r="31" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 2"/>
                   <path d="M68,92 C63,82 65,70 73,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
                   <path d="M112,92 C117,82 115,70 107,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
@@ -692,13 +653,11 @@
                   <rect x="88" y="68" width="4" height="20" fill="#a16207"/>
                   <path d="M90,55 C95,61 94,67 90,69 C86,67 85,61 90,55 Z" fill="#eab308"/>
                 </svg>
-                <!-- Optional Custom Uploaded Seal Image -->
                 <img id="custom-seal-img" src="" alt="School Seal" class="hidden absolute top-[18px] w-[128px] h-[128px] rounded-full object-cover border-2 border-amber-300 bg-white shadow" />
               </div>
 
               <!-- Foreground Editable Certificate Text -->
               <div class="cert-text-stack relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-[86px] px-14 text-center">
-                <!-- Top Gold Wheat/Laurel Flourish & Header -->
                 <div class="w-full flex flex-col items-center">
                   <svg class="w-80 h-5 mb-1" viewBox="0 0 320 20">
                     <line x1="18" y1="10" x2="302" y2="10" stroke="#cfa526" stroke-width="1.6"/>
@@ -708,30 +667,18 @@
                     <path d="M278,10 L288,16 M263,10 L273,16 M248,10 L258,16 M233,10 L243,16 M218,10 L228,16 M203,10 L213,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
                   </svg>
 
-                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[31px] leading-tight">
-                    GINGOOG CITY COLLEGES INC.
-                  </div>
-                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[29px] leading-[1.05]">
-                    Junior High School Department
-                  </div>
-                  <div contenteditable="true" id="cert-address" class="cert-address text-[18.5px] mt-0.5">
-                    Macopa St. Paz Village Brgy. 24-A. 9014 Gingoog City
-                  </div>
+                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[31px] leading-tight">GINGOOG CITY COLLEGES INC.</div>
+                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[29px] leading-[1.05]">Junior High School Department</div>
+                  <div contenteditable="true" id="cert-address" class="cert-address text-[18.5px] mt-0.5">Macopa St. Paz Village Brgy. 24-A. 9014 Gingoog City</div>
                 </div>
 
-                <!-- Title & Honor Classification -->
                 <div>
-                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[52px] leading-[1.05]">
-                    Certificate of Recognition
-                  </div>
-                  <div contenteditable="true" id="cert-honor-tier" data-field="honor" class="cert-honor-script text-[70px] leading-[0.88] mt-1">
-                    With Honors
-                  </div>
+                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[52px] leading-[1.05]">Certificate of Recognition</div>
+                  <div contenteditable="true" id="cert-honor-tier" data-field="honor" class="cert-honor-script text-[70px] leading-[0.88] mt-1">With Honors</div>
                 </div>
 
-                <!-- Recipient Name & Citation Paragraph -->
                 <div class="w-full max-w-4xl flex flex-col items-center">
-                  <div contenteditable="true" id="cert-recipient-name" data-field="name" class="cert-student-name text-[78px] px-8 border-b-[1.8px] border-[#093618] min-w-[760px]">
+                  <div contenteditable="true" id="cert-recipient-name" data-field="name" oninput="fitRecipientNameFont(this)" class="cert-student-name text-[78px] px-4 border-b-[1.8px] border-[#093618] w-[900px]">
                     Joannah Faye V. Nadala
                   </div>
 
@@ -750,23 +697,14 @@
                   </div>
                 </div>
 
-                <!-- Bottom Signatories (100% Inside Clean White Area Above Bottom Ribbons) -->
                 <div class="w-full max-w-2xl grid grid-cols-2 gap-12 pt-1">
                   <div class="flex flex-col items-center">
-                    <div contenteditable="true" id="cert-adviser-name" data-field="adviser" class="cert-sign-name text-[20px] tracking-wide uppercase">
-                      ARNOLD N. DELA PEÑA
-                    </div>
-                    <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[18px] -mt-1">
-                      Class Adviser
-                    </div>
+                    <div contenteditable="true" id="cert-adviser-name" data-field="adviser" class="cert-sign-name text-[20px] tracking-wide uppercase">ARNOLD N. DELA PEÑA</div>
+                    <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[18px] -mt-1">Class Adviser</div>
                   </div>
                   <div class="flex flex-col items-center">
-                    <div contenteditable="true" id="cert-principal-name" class="cert-sign-name text-[20px] tracking-wide uppercase">
-                      APPLE JEAN A. SIDRO
-                    </div>
-                    <div contenteditable="true" id="cert-principal-role" class="cert-sign-role text-[18px] -mt-1">
-                      School Principal
-                    </div>
+                    <div contenteditable="true" id="cert-principal-name" class="cert-sign-name text-[20px] tracking-wide uppercase">APPLE JEAN A. SIDRO</div>
+                    <div contenteditable="true" id="cert-principal-role" class="cert-sign-role text-[18px] -mt-1">School Principal</div>
                   </div>
                 </div>
               </div>
@@ -779,20 +717,13 @@
   </div>
 
   <script>
-    // =========================================================================
-    // STATE MANAGEMENT
-    // =========================================================================
     let allStudents = [];
     let uploadedSections = {};
     let includedList = [];
     let excludedList = [];
     let currentCertIndex = 0;
 
-    // =========================================================================
-    // BUILT-IN SAMPLE DATA (From 10 Tanguile.xlsx & 10 Talisay.xlsx)
-    // =========================================================================
     const SAMPLE_DATA = [
-      // 10 - TANGUILE (42 Students)
       { name: "Abasolo, Manuel Rolan R.", section: "TANGUILE", grades: [89,91,87,85,80,90,90,93], sheetGenAve: 88.667 },
       { name: "Abelo, John Benedict P.", section: "TANGUILE", grades: [82,83,76,70,73,80,85,86], sheetGenAve: 80.111 },
       { name: "Bacabis, Jediael Shem A.", section: "TANGUILE", grades: [94,93,95,88,93,93,98,95], sheetGenAve: 93.778 },
@@ -836,7 +767,6 @@
       { name: "Valencia, Glofel Anne M.", section: "TANGUILE", grades: [93,90,91,84,87,90,97,93], sheetGenAve: 90.889 },
       { name: "Yandug, Nazire Luis C.", section: "TANGUILE", grades: [89,87,87,77,82,82,92,93], sheetGenAve: 86.889 },
 
-      // 10 - TALISAY (38 Students)
       { name: "ADVENCULA, CRINAVEL R.", section: "TALISAY", grades: [90,84,87,81,91,82,86,89], sheetGenAve: 86.556 },
       { name: "Ambida, John Rico T.", section: "TALISAY", grades: [94,94,90,85,93,92,94,95], sheetGenAve: 92.444 },
       { name: "Ansihagan, Cris Ainstein L.", section: "TALISAY", grades: [87,88,84,81,84,81,89,91], sheetGenAve: 86.222 },
@@ -877,9 +807,6 @@
       { name: "Velasco, Carl Laurence M.", section: "TALISAY", grades: [90,91,86,81,86,83,91,91], sheetGenAve: 87.778 }
     ];
 
-    // =========================================================================
-    // FILE UPLOAD & DUAL-ENGINE EXCEL/CSV PARSER (SheetJS + JSZip OOXML Fallback)
-    // =========================================================================
     const fileInput = document.getElementById('file-input');
     const dropZone = document.getElementById('drop-zone');
 
@@ -1093,9 +1020,6 @@
       return { section: section.toUpperCase(), period, quarter, students };
     }
 
-    // =========================================================================
-    // HONORS CLASSIFICATION & RANKING ENGINE
-    // =========================================================================
     function classifyHonor(avg) {
       if (avg >= 98) return 'WITH HIGHEST HONORS';
       if (avg >= 95) return 'WITH HIGH HONORS';
@@ -1251,9 +1175,6 @@
       `).join('');
     }
 
-    // =========================================================================
-    // CERTIFICATE STUDIO & 2-UP LETTER PORTRAIT PRINTING (8.5" x 11")
-    // =========================================================================
     function populateCertStudentDropdown(list) {
       const select = document.getElementById('cert-student-select');
       if (!list.length) {
@@ -1309,8 +1230,31 @@
       return titleCaseName(rawName);
     }
 
+    // Accent-safe Title Case (fixes "Españo" so ñ doesn't capitalize the next letter)
     function titleCaseName(str) {
-      return str.toLowerCase().replace(/\b([a-z])/g, (m) => m.toUpperCase());
+      return str.toLowerCase().replace(/(^|\s|[-.])([a-zñáéíóúü])/g, (_, sep, ch) => sep + ch.toUpperCase());
+    }
+
+    // Auto-scales font size both by character count and exact pixel width so 1 line is guaranteed
+    function fitRecipientNameFont(el, text) {
+      const val = (text || el.textContent || '').trim();
+      const len = val.length;
+      let size = 78;
+      if (len > 36) size = 48;
+      else if (len > 32) size = 54;
+      else if (len > 28) size = 60;
+      else if (len > 24) size = 66;
+      else if (len > 21) size = 72;
+
+      el.style.fontSize = size + 'px';
+
+      // Fine-tune pixel width if mounted in DOM
+      if (el.offsetWidth > 0) {
+        while (el.scrollWidth > 890 && size > 40) {
+          size -= 2;
+          el.style.fontSize = size + 'px';
+        }
+      }
     }
 
     function formatHonorScriptTitle(remarks) {
@@ -1343,7 +1287,11 @@
 
     function applyStudentToCertificate(st) {
       if (!st) return;
-      document.getElementById('cert-recipient-name').textContent = formatNameForCertificate(st.name);
+      const nameEl = document.getElementById('cert-recipient-name');
+      const formattedName = formatNameForCertificate(st.name);
+      nameEl.textContent = formattedName;
+      fitRecipientNameFont(nameEl, formattedName);
+
       document.getElementById('cert-honor-tier').textContent = formatHonorScriptTitle(st.remarks);
       document.getElementById('cert-section').textContent = titleCaseName(st.section);
       document.getElementById('cert-average').textContent = formatCertAverage(st.activeAvg);
@@ -1389,12 +1337,18 @@
 
     function buildCertificateCloneForStudent(template, st) {
       const clone = template.cloneNode(true);
+      const cloneNameEl = clone.querySelector('[data-field="name"]');
       if (st) {
-        clone.querySelector('[data-field="name"]').textContent = formatNameForCertificate(st.name);
+        const formattedName = formatNameForCertificate(st.name);
+        cloneNameEl.textContent = formattedName;
+        fitRecipientNameFont(cloneNameEl, formattedName);
+
         clone.querySelector('[data-field="honor"]').textContent = formatHonorScriptTitle(st.remarks);
         clone.querySelector('[data-field="section"]').textContent = titleCaseName(st.section);
         clone.querySelector('[data-field="average"]').textContent = formatCertAverage(st.activeAvg);
         clone.querySelector('[data-field="adviser"]').textContent = getAdviserForSection(st.section);
+      } else {
+        fitRecipientNameFont(cloneNameEl, cloneNameEl.textContent);
       }
       clone.removeAttribute('id');
       clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
@@ -1431,6 +1385,7 @@
 
       document.body.classList.add('printing-cert');
       requestAnimationFrame(() => {
+        staging.querySelectorAll('[data-field="name"]').forEach(el => fitRecipientNameFont(el));
         requestAnimationFrame(() => window.print());
       });
     }
@@ -1468,6 +1423,7 @@
 
       document.body.classList.add('printing-cert');
       requestAnimationFrame(() => {
+        staging.querySelectorAll('[data-field="name"]').forEach(el => fitRecipientNameFont(el));
         requestAnimationFrame(() => window.print());
       });
     }
@@ -1480,9 +1436,6 @@
       });
     }
 
-    // =========================================================================
-    // EXCEL EXPORT (OFFICIAL SUMMARY)
-    // =========================================================================
     function exportOfficialExcel() {
       if (!includedList.length) {
         alert('No honor students to export.');
@@ -1529,9 +1482,6 @@
       XLSX.writeFile(wb, 'Grade_10_Honors_List.xlsx');
     }
 
-    // =========================================================================
-    // UI HELPERS & SAMPLE DATA LOADER
-    // =========================================================================
     function switchTab(tabName) {
       const tabs = ['included', 'excluded', 'printsheet', 'certificate'];
       tabs.forEach(t => {
