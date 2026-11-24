@@ -335,4 +335,1268 @@
         </div>
         <div class="bg-white rounded-xl p-4 border border-teal-200 shadow-sm">
           <div class="text-xs font-semibold text-teal-700">With High Honors</div>
-          <div id="kpi-high" class="text-2xl font-bold text-teal-60
+          <div id="kpi-high" class="text-2xl font-bold text-teal-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-sky-200 shadow-sm">
+          <div class="text-xs font-semibold text-sky-700">With Honors</div>
+          <div id="kpi-honors" class="text-2xl font-bold text-sky-600 mt-1">0</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-rose-200 shadow-sm">
+          <div class="text-xs font-semibold text-rose-700">Not Included</div>
+          <div id="kpi-not-included" class="text-2xl font-bold text-rose-600 mt-1">0</div>
+        </div>
+      </section>
+
+      <!-- Navigation Tabs & Search -->
+      <div class="no-print bg-white rounded-t-xl border-b border-slate-200 px-4 pt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-sm">
+        <nav class="flex flex-wrap gap-1 sm:gap-4" role="tablist">
+          <button id="tab-btn-included" onclick="switchTab('included')" class="tab-active px-3 py-2.5 text-sm transition flex items-center gap-1.5">
+            <span>🏆</span> Included Honors (<span id="badge-included">0</span>)
+          </button>
+          <button id="tab-btn-excluded" onclick="switchTab('excluded')" class="px-3 py-2.5 text-sm text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <span>📋</span> Not Included (<span id="badge-excluded">0</span>)
+          </button>
+          <button id="tab-btn-printsheet" onclick="switchTab('printsheet')" class="px-3 py-2.5 text-sm text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <span>🖨️</span> Official Printed Copy
+          </button>
+          <button id="tab-btn-certificate" onclick="switchTab('certificate')" class="px-3 py-2.5 text-sm text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <span>🎓</span> Certificate of Recognition (2-Up Portrait)
+          </button>
+        </nav>
+
+        <div class="pb-2.5 sm:pb-2 flex items-center gap-2">
+          <input id="search-input" type="text" oninput="recomputeAndRender()" placeholder="Search student name..." class="text-xs sm:text-sm border border-slate-300 rounded-lg px-3 py-1.5 w-full sm:w-60 focus:outline-none focus:border-emerald-600" />
+        </div>
+      </div>
+
+      <!-- TAB 1: INCLUDED HONORS DASHBOARD -->
+      <section id="panel-included" class="no-print bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 overflow-hidden -mt-6">
+        <div class="p-4 bg-emerald-50/70 border-b border-emerald-100 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-emerald-950">Included Honor Students (Highest to Lowest)</h2>
+            <p class="text-xs text-emerald-800">Automatically ranked from highest Average to lowest (89.50 and above), with Gen. Ave. rounded off.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="honor-tier-filter" onchange="recomputeAndRender()" class="text-xs bg-white border border-emerald-300 rounded-lg px-2.5 py-1.5 font-medium text-emerald-950">
+              <option value="ALL">All Honor Tiers</option>
+              <option value="WITH HIGHEST HONORS">With Highest Honors (98+)</option>
+              <option value="WITH HIGH HONORS">With High Honors (95–97)</option>
+              <option value="WITH HONORS">With Honors (89.5–94)</option>
+            </select>
+            <button onclick="printAllCertificates()" class="px-3 py-1.5 rounded-lg bg-[#0f4c29] hover:bg-[#0b3b20] text-white text-xs font-semibold transition">
+              🖨️ Print All (2 per Letter Portrait)
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 text-xs uppercase border-b border-slate-200">
+                <th class="py-3 px-3 text-center">Rank</th>
+                <th class="py-3 px-3">Student Name</th>
+                <th class="py-3 px-3">Section</th>
+                <th class="py-3 px-2 text-center">Fil</th>
+                <th class="py-3 px-2 text-center">Eng</th>
+                <th class="py-3 px-2 text-center">Math</th>
+                <th class="py-3 px-2 text-center">Sci</th>
+                <th class="py-3 px-2 text-center">AP</th>
+                <th class="py-3 px-2 text-center">EsP/GMRC</th>
+                <th class="py-3 px-2 text-center">TLE</th>
+                <th class="py-3 px-2 text-center">MAPEH</th>
+                <th class="py-3 px-3 text-center">Average</th>
+                <th class="py-3 px-3 text-center font-bold">Gen. Ave.</th>
+                <th class="py-3 px-3">Remarks</th>
+                <th class="py-3 px-3 text-center">Certificate</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-included" class="divide-y divide-slate-100 text-sm"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 2: NOT INCLUDED DASHBOARD -->
+      <section id="panel-excluded" class="hidden no-print bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 overflow-hidden -mt-6">
+        <div class="p-4 bg-rose-50/70 border-b border-rose-100 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h2 class="text-base font-bold text-rose-950">Not Included Students (Highest to Lowest)</h2>
+            <p class="text-xs text-rose-800">Students with Average below 89.50, ordered from highest to lowest with points needed to reach 89.50.</p>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 text-xs uppercase border-b border-slate-200">
+                <th class="py-3 px-3 text-center">#</th>
+                <th class="py-3 px-3">Student Name</th>
+                <th class="py-3 px-3">Section</th>
+                <th class="py-3 px-2 text-center">Fil</th>
+                <th class="py-3 px-2 text-center">Eng</th>
+                <th class="py-3 px-2 text-center">Math</th>
+                <th class="py-3 px-2 text-center">Sci</th>
+                <th class="py-3 px-2 text-center">AP</th>
+                <th class="py-3 px-2 text-center">EsP/GMRC</th>
+                <th class="py-3 px-2 text-center">TLE</th>
+                <th class="py-3 px-2 text-center">MAPEH</th>
+                <th class="py-3 px-3 text-center">Average</th>
+                <th class="py-3 px-3 text-center font-bold">Gen. Ave.</th>
+                <th class="py-3 px-3 text-center">Gap to 89.50</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-excluded" class="divide-y divide-slate-100 text-sm"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- TAB 3: OFFICIAL PRINTED COPY -->
+      <section id="panel-printsheet" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6">
+        <div class="no-print mb-4 pb-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="text-xs text-slate-600">
+            <strong>Tip:</strong> Click any header, school year, or signatory name directly on the sheet below to edit before printing or exporting.
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="exportOfficialExcel()" class="px-3.5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition flex items-center gap-1.5">
+              <span>📥</span> Export Official .XLSX
+            </button>
+            <button onclick="printOfficialSummary()" class="px-3.5 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition flex items-center gap-1.5">
+              <span>🖨️</span> Print Official Sheet
+            </button>
+          </div>
+        </div>
+
+        <div id="official-print-area" class="print-only-container official-sheet max-w-5xl mx-auto p-4 sm:p-6 border border-slate-300">
+          <div class="flex justify-between items-start mb-4">
+            <div>
+              <div contenteditable="true" id="sheet-school-name" class="font-bold text-base tracking-wide">GINGOOG CITY COLLEGES, INC.</div>
+              <div contenteditable="true" id="sheet-school-city" class="text-sm">GINGOOG CITY</div>
+            </div>
+            <div class="text-right">
+              <div contenteditable="true" id="sheet-grade-title" class="font-bold text-base">GRADE 10 TOP STUDENTS</div>
+              <div contenteditable="true" id="sheet-grading-period" class="text-sm font-semibold">2ND GRADING PERIOD</div>
+              <div contenteditable="true" id="sheet-school-year" class="text-sm">2026-2027</div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="official-table w-full border-collapse">
+              <thead>
+                <tr>
+                  <th class="w-10">No</th>
+                  <th class="text-left">NAME OF STUDENTS</th>
+                  <th>FILIPINO</th>
+                  <th>ENGLISH</th>
+                  <th>MATHEMATICS</th>
+                  <th>SCIENCE</th>
+                  <th>ARAL. PAN.</th>
+                  <th>ESP</th>
+                  <th>TLE/COMP.</th>
+                  <th>MAPEH</th>
+                  <th>AVERAGE</th>
+                  <th>GEN. AVE.</th>
+                  <th>REMARKS</th>
+                  <th>SECTION</th>
+                </tr>
+              </thead>
+              <tbody id="official-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="mt-8 text-xs">
+            <div class="font-bold mb-6">PREPARED BY:</div>
+            <div class="grid grid-cols-2 gap-8 text-center mb-8">
+              <div>
+                <div contenteditable="true" id="sig-adv-1-name" class="font-bold underline uppercase">Mr. Lemuel Lucaban</div>
+                <div contenteditable="true" id="sig-adv-1-role">10-Talisay Adviser</div>
+              </div>
+              <div>
+                <div contenteditable="true" id="sig-adv-2-name" class="font-bold underline uppercase">Mrs. Daisy Leonardo</div>
+                <div contenteditable="true" id="sig-adv-2-role">10-Tanguile Adviser</div>
+              </div>
+            </div>
+
+            <div class="font-bold mb-6">NOTED BY:</div>
+            <div class="grid grid-cols-2 gap-8 text-center">
+              <div>
+                <div contenteditable="true" id="sig-coord-name" class="font-bold underline uppercase">MARLYN T. SUMONOD</div>
+                <div contenteditable="true" id="sig-coord-role">JHS Coordinator</div>
+              </div>
+              <div>
+                <div contenteditable="true" id="sig-prin-name" class="font-bold underline uppercase">APPLE JEAN A. SIDRO</div>
+                <div contenteditable="true" id="sig-prin-role">School Principal</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: CERTIFICATE OF RECOGNITION (2-UP LETTER PORTRAIT 8.5" x 11") -->
+      <section id="panel-certificate" class="hidden bg-white rounded-b-xl shadow-sm border border-t-0 border-slate-200 p-4 sm:p-6 -mt-6 space-y-5">
+        <div class="no-print bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-3">
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Certificate of Recognition — 2 Certificates per US Letter Portrait (8.5" × 11")</h2>
+              <p class="text-xs text-slate-600">Select a student or click directly on any text on the certificate below to edit it. Prints 2 complete certificates per Letter Portrait page.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="prevCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">◀ Prev</button>
+              <select id="cert-student-select" onchange="selectCertStudentByIndex(this.value)" class="text-xs bg-white border border-slate-300 rounded-lg px-3 py-1.5 font-semibold text-slate-800 max-w-xs"></select>
+              <button onclick="nextCertStudent()" class="px-2.5 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 text-xs font-semibold">Next ▶</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-xs">
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">Grade Level</label>
+              <input id="ctrl-grade" type="text" value="7" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">Quarter</label>
+              <input id="ctrl-quarter" type="text" value="2nd" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">School Year</label>
+              <input id="ctrl-sy" type="text" value="2026-2027" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">Average Format</label>
+              <select id="ctrl-avg-format" onchange="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white">
+                <option value="round">Whole Number (e.g., 93)</option>
+                <option value="2dec">2 Decimals (e.g., 93.75)</option>
+                <option value="exact">Exact Decimal (e.g., 93.625)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">Award Date Text</label>
+              <input id="ctrl-award-date" type="text" value="29th day of September 2026" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">Class Adviser</label>
+              <input id="ctrl-adviser" type="text" value="ARNOLD N. DELA PEÑA" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-600 mb-1">School Principal</label>
+              <input id="ctrl-principal" type="text" value="APPLE JEAN A. SIDRO" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <div class="flex flex-wrap items-center gap-3">
+              <label class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-700 cursor-pointer">
+                <input id="ctrl-auto-adviser" type="checkbox" onchange="syncCertFromControls()" class="rounded text-emerald-700" />
+                <span>Auto-match Adviser by Section (Talisay / Tanguile)</span>
+              </label>
+              <label class="px-2.5 py-1 rounded-md bg-white border border-slate-300 hover:bg-slate-100 text-xs font-medium text-slate-700 cursor-pointer">
+                🖼️ Upload Custom Seal/Logo
+                <input type="file" accept="image/*" onchange="uploadCustomSeal(event)" class="hidden" />
+              </label>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="printSingleCertificate()" class="px-4 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold transition shadow-sm">
+                🖨️ Print Current Pair (2-Up Portrait)
+              </button>
+              <button onclick="printAllCertificates()" class="px-4 py-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold transition shadow-sm">
+                📚 Batch Print All (2 per Letter Portrait)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto pb-4 flex justify-center">
+          <div id="certificate-template-wrapper">
+            <div id="active-certificate" class="cert-canvas">
+              <div class="cert-marble-layer"></div>
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
+                <g fill="none" stroke-linecap="round">
+                  <path d="M-20,195 C120,180 210,255 340,208 C460,165 530,95 690,125 C820,152 930,98 1080,65" stroke="#dcc796" stroke-width="5.5" opacity="0.34"/>
+                  <path d="M-10,208 C130,192 220,268 350,220 C470,178 540,108 700,138" stroke="#c3a463" stroke-width="2" opacity="0.28"/>
+                  <path d="M90,825 C190,695 270,630 395,612 C510,595 595,505 745,478 C880,454 965,392 1075,338" stroke="#dcc796" stroke-width="6.5" opacity="0.36"/>
+                  <path d="M115,825 C215,700 290,640 412,622 C525,606 610,518 758,490" stroke="#bfa05d" stroke-width="2.2" opacity="0.30"/>
+                  <path d="M-25,510 C95,538 165,625 290,662 C420,700 530,755 675,810" stroke="#e2cfa5" stroke-width="4.8" opacity="0.32"/>
+                  <path d="M430,-10 C475,102 450,200 515,298 C575,385 695,418 810,538 C895,625 975,675 1070,718" stroke="#dfd0ac" stroke-width="4.2" opacity="0.28"/>
+                </g>
+              </svg>
+
+              <!-- 4 Corner Ribbons with Solid Print-Safe Fills -->
+              <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1056 816" preserveAspectRatio="none">
+                <polygon points="0,145 40,115 40,218 0,248" fill="#d4af37" />
+                <polygon points="0,151 31,128 31,208 0,231" fill="#09381a" />
+                <polygon points="0,0 288,0 0,185" fill="#d4af37" />
+                <polygon points="0,0 258,0 0,165" fill="#0b3e1d" />
+                <polygon points="1056,0 742,0 1056,195" fill="#d4af37" />
+                <polygon points="1056,0 778,0 1056,172" fill="#0b3e1d" />
+                <polygon points="1056,608 1016,638 1016,718 1056,688" fill="#d4af37" />
+                <polygon points="1056,617 1025,640 1025,708 1056,685" fill="#09381a" />
+                <polygon points="1056,658 688,816 1056,816" fill="#d4af37" />
+                <polygon points="1056,680 748,816 1056,816" fill="#09381a" />
+                <polygon points="0,658 372,816 0,816" fill="#d4af37" />
+                <polygon points="0,680 312,816 0,816" fill="#09381a" />
+              </svg>
+
+              <!-- Scalloped Rosette Seal -->
+              <div class="absolute top-3 right-5 w-[180px] h-[220px] flex flex-col items-center select-none pointer-events-none">
+                <svg class="w-[180px] h-[220px]" viewBox="0 0 180 220">
+                  <polygon points="48,125 22,196 46,178 64,206 82,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="51" y1="132" x2="31" y2="188" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="76" y1="134" x2="61" y2="198" stroke="#d4af37" stroke-width="1.2"/>
+                  <polygon points="132,125 158,196 134,178 116,206 98,132" fill="#0d4a1e" stroke="#d4af37" stroke-width="1.8"/>
+                  <line x1="129" y1="132" x2="149" y2="188" stroke="#d4af37" stroke-width="1.2"/>
+                  <line x1="104" y1="134" x2="119" y2="198" stroke="#d4af37" stroke-width="1.2"/>
+                  <circle cx="90" cy="82" r="73" fill="#115e26" stroke="#d4af37" stroke-width="3.5" stroke-dasharray="5 3"/>
+                  <circle cx="90" cy="82" r="67" fill="#115e26" stroke="#f6e27a" stroke-width="1.5"/>
+                  <circle cx="90" cy="82" r="61" fill="#d4af37" />
+                  <circle cx="90" cy="82" r="57" fill="#ffffff" stroke="#14532d" stroke-width="2"/>
+                  <circle cx="90" cy="82" r="36" fill="#ffffff" stroke="#14532d" stroke-width="1.8"/>
+                  <defs>
+                    <path id="gccTopArc" d="M 44,82 A 46,46 0 1,1 136,82" />
+                    <path id="gccBotArc" d="M 45,87 A 45,45 0 0,0 135,87" />
+                  </defs>
+                  <text font-size="9.5" font-weight="800" font-family="Times New Roman, serif" fill="#14532d" letter-spacing="1.2">
+                    <textPath href="#gccTopArc" startOffset="50%" text-anchor="middle">GINGOOG CITY COLLEGES</textPath>
+                  </text>
+                  <text font-size="8.8" font-weight="800" font-family="Times New Roman, serif" fill="#14532d" letter-spacing="1.5">
+                    <textPath href="#gccBotArc" startOffset="50%" text-anchor="middle">• 1967 •</textPath>
+                  </text>
+                  <circle cx="90" cy="82" r="31" fill="none" stroke="#d4af37" stroke-width="1.5" stroke-dasharray="3 2"/>
+                  <path d="M68,92 C63,82 65,70 73,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M112,92 C117,82 115,70 107,63" fill="none" stroke="#15803d" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M73,87 Q82,91 90,88 Q98,91 107,87 L105,96 Q98,99 90,96 Q82,99 75,96 Z" fill="#166534"/>
+                  <rect x="88" y="68" width="4" height="20" fill="#a16207"/>
+                  <path d="M90,55 C95,61 94,67 90,69 C86,67 85,61 90,55 Z" fill="#eab308"/>
+                </svg>
+                <img id="custom-seal-img" src="" alt="School Seal" class="hidden absolute top-[18px] w-[128px] h-[128px] rounded-full object-cover border-2 border-amber-300 bg-white shadow" />
+              </div>
+
+              <!-- Foreground Editable Certificate Text -->
+              <div class="cert-text-stack relative z-10 h-full flex flex-col items-center justify-between pt-8 pb-[86px] px-14 text-center">
+                <div class="w-full flex flex-col items-center">
+                  <svg class="w-80 h-5 mb-1" viewBox="0 0 320 20">
+                    <line x1="18" y1="10" x2="302" y2="10" stroke="#cfa526" stroke-width="1.6"/>
+                    <path d="M42,10 L32,4 M57,10 L47,4 M72,10 L62,4 M87,10 L77,4 M102,10 L92,4 M117,10 L107,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M42,10 L32,16 M57,10 L47,16 M72,10 L62,16 M87,10 L77,16 M102,10 L92,16 M117,10 L107,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M278,10 L288,4 M263,10 L273,4 M248,10 L258,4 M233,10 L243,4 M218,10 L228,4 M203,10 L213,4" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                    <path d="M278,10 L288,16 M263,10 L273,16 M248,10 L258,16 M233,10 L243,16 M218,10 L228,16 M203,10 L213,16" stroke="#cfa526" stroke-width="1.6" stroke-linecap="round"/>
+                  </svg>
+
+                  <div contenteditable="true" id="cert-school" class="cert-school-title text-[31px] leading-tight">GINGOOG CITY COLLEGES INC.</div>
+                  <div contenteditable="true" id="cert-dept" class="cert-dept-title text-[29px] leading-[1.05]">Junior High School Department</div>
+                  <div contenteditable="true" id="cert-address" class="cert-address text-[18.5px] mt-0.5">Macopa St. Paz Village Brgy. 24-A. 9014 Gingoog City</div>
+                </div>
+
+                <div>
+                  <div contenteditable="true" id="cert-title" class="cert-main-heading text-[52px] leading-[1.05]">Certificate of Recognition</div>
+                  <div contenteditable="true" id="cert-honor-tier" data-field="honor" class="cert-honor-script text-[70px] leading-[0.88] mt-1">With Honors</div>
+                </div>
+
+                <div class="w-full max-w-4xl flex flex-col items-center">
+                  <div contenteditable="true" id="cert-recipient-name" data-field="name" oninput="fitRecipientNameFont(this)" class="cert-student-name text-[78px] px-4 border-b-[1.8px] border-[#093618] w-[900px]">
+                    Joannah Faye V. Nadala
+                  </div>
+
+                  <div class="cert-body-text text-[26.5px] leading-[1.35] mt-2.5">
+                    of Grade <span contenteditable="true" id="cert-grade" class="cert-blank-line min-w-[60px]">7</span>
+                    Section <span contenteditable="true" id="cert-section" data-field="section" class="cert-blank-line min-w-[165px]">Gemelina</span>
+                    has obtained a General<br/>
+                    Average of <span contenteditable="true" id="cert-average" data-field="average" class="cert-blank-line min-w-[74px]">93</span>
+                    in the <span contenteditable="true" id="cert-quarter" class="font-bold">2<sup>nd</sup></span> Quarter,
+                    S.Y. <span contenteditable="true" id="cert-sy" class="font-bold">2026-2027</span>.
+                  </div>
+
+                  <div class="cert-body-text italic text-[21.5px] mt-3.5">
+                    Awarded this <span contenteditable="true" id="cert-award-date">29<sup>th</sup> day of September 2026</span>
+                    <span contenteditable="true" id="cert-program-text">during its Reading of Honors program.</span>
+                  </div>
+                </div>
+
+                <div class="w-full max-w-2xl grid grid-cols-2 gap-12 pt-1">
+                  <div class="flex flex-col items-center">
+                    <div contenteditable="true" id="cert-adviser-name" data-field="adviser" class="cert-sign-name text-[20px] tracking-wide uppercase">ARNOLD N. DELA PEÑA</div>
+                    <div contenteditable="true" id="cert-adviser-role" class="cert-sign-role text-[18px] -mt-1">Class Adviser</div>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div contenteditable="true" id="cert-principal-name" class="cert-sign-name text-[20px] tracking-wide uppercase">APPLE JEAN A. SIDRO</div>
+                    <div contenteditable="true" id="cert-principal-role" class="cert-sign-role text-[18px] -mt-1">School Principal</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    let allStudents = [];
+    let uploadedSections = {};
+    let includedList = [];
+    let excludedList = [];
+    let currentCertIndex = 0;
+
+    const SAMPLE_DATA = [
+      { name: "Abasolo, Manuel Rolan R.", section: "TANGUILE", grades: [89,91,87,85,80,90,90,93], sheetGenAve: 88.667 },
+      { name: "Abelo, John Benedict P.", section: "TANGUILE", grades: [82,83,76,70,73,80,85,86], sheetGenAve: 80.111 },
+      { name: "Bacabis, Jediael Shem A.", section: "TANGUILE", grades: [94,93,95,88,93,93,98,95], sheetGenAve: 93.778 },
+      { name: "Bajao, Donna Mae M.", section: "TANGUILE", grades: [92,89,88,75,80,81,88,91], sheetGenAve: 86.111 },
+      { name: "Bantilan, Niño R.", section: "TANGUILE", grades: [93,89,89,86,90,89,96,93], sheetGenAve: 90.889 },
+      { name: "Bantug, Xian Reyden E.", section: "TANGUILE", grades: [92,95,89,85,89,92,95,93], sheetGenAve: 91.444 },
+      { name: "Calamba, Princess Thaila Marie E.", section: "TANGUILE", grades: [70,70,72,70,72,71,82,68], sheetGenAve: 71.444 },
+      { name: "Calustre, Ura Elijah Fe J.", section: "TANGUILE", grades: [93,95,94,93,90,93,96,93], sheetGenAve: 93.333 },
+      { name: "Cañada, Justin L.", section: "TANGUILE", grades: [88,94,90,80,86,92,94,92], sheetGenAve: 89.778 },
+      { name: "Creencia, Necole G.", section: "TANGUILE", grades: [91,86,89,86,91,90,94,92], sheetGenAve: 90.111 },
+      { name: "Cubao, Gracelle Vienberly L.", section: "TANGUILE", grades: [92,96,92,84,88,91,96,96], sheetGenAve: 92.333 },
+      { name: "DANIEL, SETHCLAIRE E.", section: "TANGUILE", grades: [70,79,73,70,70,70,82,67], sheetGenAve: 72.000 },
+      { name: "Danuco, Carl Anthony M.", section: "TANGUILE", grades: [70,72,70,70,70,70,82,68], sheetGenAve: 71.111 },
+      { name: "De Lara, Solenn Marie N.", section: "TANGUILE", grades: [90,89,89,86,85,90,94,92], sheetGenAve: 89.667 },
+      { name: "Dima-Ano, Nyjin Cyrus S.", section: "TANGUILE", grades: [94,94,95,91,88,92,97,94], sheetGenAve: 93.222 },
+      { name: "Españo, Niel Christian E.", section: "TANGUILE", grades: [93,91,93,85,90,94,96,93], sheetGenAve: 92.000 },
+      { name: "Estel, Jeff Arnil A.", section: "TANGUILE", grades: [75,83,87,73,75,80,84,80], sheetGenAve: 79.667 },
+      { name: "Galang, Jude Angelo T.", section: "TANGUILE", grades: [90,90,90,88,90,91,92,90], sheetGenAve: 90.111 },
+      { name: "Gallo, Ianna E.", section: "TANGUILE", grades: [89,89,92,80,86,89,93,92], sheetGenAve: 89.111 },
+      { name: "Gamulo, John Rexcel M.", section: "TANGUILE", grades: [70,70,72,70,72,70,73,63], sheetGenAve: 69.222 },
+      { name: "Gulay, Veatrice Jelaine C.", section: "TANGUILE", grades: [93,95,94,91,90,92,95,96], sheetGenAve: 93.556 },
+      { name: "Gutang, Bobby Jay L.", section: "TANGUILE", grades: [93,91,88,83,88,91,94,89], sheetGenAve: 89.556 },
+      { name: "Jandomon, Thai Rah Lipinski H.", section: "TANGUILE", grades: [91,91,89,84,83,88,93,93], sheetGenAve: 89.444 },
+      { name: "Leonor, Maxene Vince P.", section: "TANGUILE", grades: [90,88,89,77,80,90,89,89], sheetGenAve: 86.778 },
+      { name: "Manla, Joshua R.", section: "TANGUILE", grades: [90,86,89,78,80,87,92,90], sheetGenAve: 86.889 },
+      { name: "Misa, Rita Mae R.", section: "TANGUILE", grades: [93,91,90,85,88,92,95,93], sheetGenAve: 91.111 },
+      { name: "Molina, Prince Kyle A.", section: "TANGUILE", grades: [92,89,89,82,84,89,92,91], sheetGenAve: 88.778 },
+      { name: "Neri, Sophia Isabel G.", section: "TANGUILE", grades: [91,91,88,81,85,89,93,92], sheetGenAve: 89.111 },
+      { name: "Odrigue, Arielle Gwen A.", section: "TANGUILE", grades: [93,90,91,89,89,90,94,90], sheetGenAve: 90.667 },
+      { name: "Pabatang, Jhon Mark D.", section: "TANGUILE", grades: [85,84,82,75,78,82,86,86], sheetGenAve: 82.667 },
+      { name: "Paderanga, Kyle Andrei M.", section: "TANGUILE", grades: [90,88,88,80,83,88,91,90], sheetGenAve: 87.556 },
+      { name: "Pajaron, Lance Gabriel B.", section: "TANGUILE", grades: [88,87,86,78,80,85,89,88], sheetGenAve: 85.444 },
+      { name: "Pimentel, Rianne Chloe T.", section: "TANGUILE", grades: [92,93,90,85,88,91,95,93], sheetGenAve: 91.111 },
+      { name: "Quiblat, Keisha Faye L.", section: "TANGUILE", grades: [90,89,87,80,83,88,92,90], sheetGenAve: 87.667 },
+      { name: "Ramos, Ethan Gabriel V.", section: "TANGUILE", grades: [86,85,84,76,79,84,88,87], sheetGenAve: 84.000 },
+      { name: "Sabuero, Althea Nicole P.", section: "TANGUILE", grades: [91,90,89,82,85,90,93,91], sheetGenAve: 89.111 },
+      { name: "Salcedo, Christian Dave R.", section: "TANGUILE", grades: [84,82,81,74,76,80,85,85], sheetGenAve: 81.333 },
+      { name: "Talja, Marie Neal R.", section: "TANGUILE", grades: [94,90,93,84,87,91,94,93], sheetGenAve: 91.000 },
+      { name: "TAN , HENILEH GABRIELLE MONALISA C.", section: "TANGUILE", grades: [86,89,87,76,78,84,84,89], sheetGenAve: 84.667 },
+      { name: "Tiozon, Gianne Khristoffer -.", section: "TANGUILE", grades: [92,91,94,89,90,91,96,93], sheetGenAve: 92.111 },
+      { name: "Valencia, Glofel Anne M.", section: "TANGUILE", grades: [93,90,91,84,87,90,97,93], sheetGenAve: 90.889 },
+      { name: "Yandug, Nazire Luis C.", section: "TANGUILE", grades: [89,87,87,77,82,82,92,93], sheetGenAve: 86.889 },
+
+      { name: "ADVENCULA, CRINAVEL R.", section: "TALISAY", grades: [90,84,87,81,91,82,86,89], sheetGenAve: 86.556 },
+      { name: "Ambida, John Rico T.", section: "TALISAY", grades: [94,94,90,85,93,92,94,95], sheetGenAve: 92.444 },
+      { name: "Ansihagan, Cris Ainstein L.", section: "TALISAY", grades: [87,88,84,81,84,81,89,91], sheetGenAve: 86.222 },
+      { name: "Arnaiz, Arianna Kelly P.", section: "TALISAY", grades: [94,93,93,91,93,94,97,94], sheetGenAve: 93.667 },
+      { name: "ARTITA, RON ANDREW B.", section: "TALISAY", grades: [88,88,84,80,90,89,94,89], sheetGenAve: 87.889 },
+      { name: "Auditor, Maezhaireem F.", section: "TALISAY", grades: [94,92,93,90,87,90,92,93], sheetGenAve: 91.556 },
+      { name: "Beroy, Earl Shan Nazarene M.", section: "TALISAY", grades: [94,91,95,88,92,94,96,94], sheetGenAve: 93.111 },
+      { name: "Buque, Shanelle Kate V.", section: "TALISAY", grades: [94,95,95,93,92,93,97,94], sheetGenAve: 94.111 },
+      { name: "Cabaluna, Prince Neilmarl E.", section: "TALISAY", grades: [92,94,90,87,91,91,95,92], sheetGenAve: 91.556 },
+      { name: "Cabeltes, King Gerime M.", section: "TALISAY", grades: [88,81,84,75,80,79,85,89], sheetGenAve: 83.333 },
+      { name: "Calamba, Daniel T.", section: "TALISAY", grades: [90,95,90,88,91,94,96,93], sheetGenAve: 92.222 },
+      { name: "Cotamora, Humphrey A.", section: "TALISAY", grades: [89,87,90,88,90,82,91,90], sheetGenAve: 88.556 },
+      { name: "Cubero, Zian M.", section: "TALISAY", grades: [90,89,88,80,88,82,92,91], sheetGenAve: 87.889 },
+      { name: "Daabay, Lucas Rafael G.", section: "TALISAY", grades: [70,89,73,70,70,78,76,70], sheetGenAve: 74.000 },
+      { name: "Dalanon, Zaijan E.", section: "TALISAY", grades: [89,86,89,88,92,90,96,93], sheetGenAve: 90.667 },
+      { name: "Desabille, Gertrude Zander B.", section: "TALISAY", grades: [93,93,90,88,89,90,92,93], sheetGenAve: 91.222 },
+      { name: "Españo, Rheanna A.", section: "TALISAY", grades: [94,94,93,89,93,92,97,93], sheetGenAve: 93.111 },
+      { name: "FAELNAR, MADELEINE A.", section: "TALISAY", grades: [93,93,88,85,85,90,95,92], sheetGenAve: 90.333 },
+      { name: "Felisilda, Beau Axl T.", section: "TALISAY", grades: [80,76,76,70,75,73,77,81], sheetGenAve: 76.556 },
+      { name: "Gabriel, Princess Mary N.", section: "TALISAY", grades: [89,90,88,83,90,83,87,93], sheetGenAve: 88.444 },
+      { name: "Gundaya, Jayne Maxine A.", section: "TALISAY", grades: [91,90,90,80,88,84,89,92], sheetGenAve: 88.444 },
+      { name: "Langres, Jessica Chloe", section: "TALISAY", grades: [92,89,90,82,87,84,93,92], sheetGenAve: 89.000 },
+      { name: "Lanticse, Rege Boy M.", section: "TALISAY", grades: [89,88,89,84,85,83,92,90], sheetGenAve: 87.778 },
+      { name: "Mejorada, Amirah Marie A.", section: "TALISAY", grades: [89,91,87,80,80,82,88,91], sheetGenAve: 86.556 },
+      { name: "Omas-As, Kurt Laurence S.", section: "TALISAY", grades: [89,86,87,80,82,81,83,90], sheetGenAve: 85.333 },
+      { name: "Ong, Samantha Claire D.", section: "TALISAY", grades: [93,92,91,87,90,91,95,93], sheetGenAve: 91.667 },
+      { name: "Padilla, Marcus Andre L.", section: "TALISAY", grades: [87,85,84,78,82,80,86,88], sheetGenAve: 84.222 },
+      { name: "Panganiban, Heartzel Mae C.", section: "TALISAY", grades: [91,90,89,84,88,87,92,91], sheetGenAve: 89.222 },
+      { name: "Quilaton, John Lloyd B.", section: "TALISAY", grades: [85,83,82,75,79,78,84,86], sheetGenAve: 82.000 },
+      { name: "Reyes, Sophia Nicole M.", section: "TALISAY", grades: [92,91,90,86,89,90,94,92], sheetGenAve: 90.667 },
+      { name: "Rivera, Nathan Gabriel P.", section: "TALISAY", grades: [88,87,86,79,83,82,88,89], sheetGenAve: 85.667 },
+      { name: "Rosales, Trisha Mae V.", section: "TALISAY", grades: [90,89,88,82,86,85,91,90], sheetGenAve: 87.889 },
+      { name: "Sayson, Kyle Benedict R.", section: "TALISAY", grades: [84,81,80,73,77,76,82,85], sheetGenAve: 80.333 },
+      { name: "Suansing, Leamsy S.", section: "TALISAY", grades: [92,93,94,92,90,90,96,93], sheetGenAve: 92.556 },
+      { name: "Tabunan, Ellanea Abish F.", section: "TALISAY", grades: [88,91,89,80,80,84,92,84], sheetGenAve: 85.778 },
+      { name: "Tago, Christine Joyce N.", section: "TALISAY", grades: [94,93,94,90,92,92,97,94], sheetGenAve: 93.333 },
+      { name: "Tuyor, Achilles P.", section: "TALISAY", grades: [90,86,88,82,89,88,92,92], sheetGenAve: 88.778 },
+      { name: "Velasco, Carl Laurence M.", section: "TALISAY", grades: [90,91,86,81,86,83,91,91], sheetGenAve: 87.778 }
+    ];
+
+    const fileInput = document.getElementById('file-input');
+    const dropZone = document.getElementById('drop-zone');
+
+    fileInput.addEventListener('change', async (e) => {
+      await handleFiles(e.target.files);
+      fileInput.value = '';
+    });
+
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('border-emerald-600', 'bg-emerald-100/60');
+    });
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('border-emerald-600', 'bg-emerald-100/60');
+    });
+    dropZone.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('border-emerald-600', 'bg-emerald-100/60');
+      if (e.dataTransfer.files?.length) {
+        await handleFiles(e.dataTransfer.files);
+      }
+    });
+
+    async function handleFiles(fileList) {
+      for (const file of fileList) {
+        try {
+          const parsed = await parseSpreadsheetFile(file);
+          if (parsed && parsed.students.length > 0) {
+            const secName = (parsed.section || file.name.replace(/\.[^/.]+$/, '')).toUpperCase();
+            allStudents = allStudents.filter(s => s.section !== secName);
+            parsed.students.forEach(st => {
+              st.section = secName;
+              allStudents.push(st);
+            });
+            uploadedSections[secName] = {
+              fileName: file.name,
+              count: parsed.students.length,
+              period: parsed.period || '',
+              quarter: parsed.quarter || ''
+            };
+            if (parsed.gradeLevel) {
+              document.getElementById('sheet-grade-title').textContent = 'GRADE ' + parsed.gradeLevel + ' TOP STUDENTS';
+              document.getElementById('ctrl-grade').value = parsed.gradeLevel;
+            }
+            if (parsed.quarter) {
+              document.getElementById('sheet-grading-period').textContent = parsed.quarter.toUpperCase() + ' GRADING PERIOD';
+              const qMatch = parsed.quarter.match(/(\d+(?:st|nd|rd|th))/i);
+              if (qMatch) document.getElementById('ctrl-quarter').value = qMatch[1];
+            }
+            if (parsed.period) {
+              const sy = parsed.period.replace(/SY\s*/i, '').trim();
+              document.getElementById('sheet-school-year').textContent = sy;
+              document.getElementById('ctrl-sy').value = sy;
+            }
+          }
+        } catch (err) {
+          console.error('Error parsing file:', file.name, err);
+          alert('Could not parse ' + file.name + ': ' + err.message);
+        }
+      }
+      updateSectionFilterOptions();
+      renderFileBadges();
+      recomputeAndRender();
+    }
+
+    async function parseSpreadsheetFile(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      try {
+        const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const matrix = XLSX.utils.sheet_to_json(firstSheet, { header: 1, defval: '' });
+        const res = extractStudentsFromMatrix(matrix, file.name);
+        if (res.students.length > 0) return res;
+      } catch (sheetJsErr) {
+        console.warn('SheetJS fallback triggered for', file.name, sheetJsErr);
+      }
+      return await parseXlsxViaZipXml(arrayBuffer, file.name);
+    }
+
+    async function parseXlsxViaZipXml(arrayBuffer, fileName) {
+      const zip = await JSZip.loadAsync(arrayBuffer);
+      let sharedStrings = [];
+      if (zip.files['xl/sharedStrings.xml']) {
+        const ssText = await zip.files['xl/sharedStrings.xml'].async('text');
+        const doc = new DOMParser().parseFromString(ssText, 'application/xml');
+        const siNodes = doc.getElementsByTagName('si');
+        for (let i = 0; i < siNodes.length; i++) {
+          const tNodes = siNodes[i].getElementsByTagName('t');
+          let str = '';
+          for (let j = 0; j < tNodes.length; j++) str += tNodes[j].textContent || '';
+          sharedStrings.push(str);
+        }
+      }
+
+      const sheetKeys = Object.keys(zip.files).filter(k => k.startsWith('xl/worksheets/sheet') && k.endsWith('.xml')).sort();
+      if (!sheetKeys.length) throw new Error('No worksheet XML found.');
+      const sheetXml = await zip.files[sheetKeys[0]].async('text');
+      const sDoc = new DOMParser().parseFromString(sheetXml, 'application/xml');
+      const rowNodes = sDoc.getElementsByTagName('row');
+
+      const matrix = [];
+      for (let r = 0; r < rowNodes.length; r++) {
+        const rowArr = [];
+        const cNodes = rowNodes[r].getElementsByTagName('c');
+        for (let c = 0; c < cNodes.length; c++) {
+          const ref = cNodes[c].getAttribute('r') || '';
+          const colLetters = ref.replace(/[0-9]/g, '');
+          const colIdx = colLettersToIndex(colLetters);
+          const type = cNodes[c].getAttribute('t') || '';
+          const vNode = cNodes[c].getElementsByTagName('v')[0];
+          const isNode = cNodes[c].getElementsByTagName('is')[0];
+          let val = '';
+          if (vNode) {
+            val = vNode.textContent;
+            if (type === 's') val = sharedStrings[parseInt(val, 10)] ?? '';
+          } else if (isNode) {
+            val = isNode.textContent;
+          }
+          rowArr[colIdx] = val;
+        }
+        matrix.push(rowArr);
+      }
+      return extractStudentsFromMatrix(matrix, fileName);
+    }
+
+    function colLettersToIndex(letters) {
+      let col = 0;
+      for (let i = 0; i < letters.length; i++) {
+        col = col * 26 + (letters.charCodeAt(i) - 64);
+      }
+      return Math.max(0, col - 1);
+    }
+
+    function extractStudentsFromMatrix(matrix, fileName) {
+      let section = '';
+      let period = '';
+      let quarter = '';
+      let gradeLevel = '';
+      let headerRowIdx = -1;
+      let colMap = {};
+
+      for (let r = 0; r < Math.min(matrix.length, 25); r++) {
+        const row = matrix[r] || [];
+        for (let c = 0; c < row.length; c++) {
+          const cell = String(row[c] ?? '').trim();
+          const nextCell = String(row[c + 1] ?? '').trim();
+          if (/^section$/i.test(cell) && nextCell) section = nextCell;
+          if (/^period$/i.test(cell) && nextCell) period = nextCell;
+          if (/^terms?$/i.test(cell) && nextCell) quarter = nextCell;
+          if (/^year$/i.test(cell) && nextCell) {
+            const yrMap = { '1': '7', '2': '8', '3': '9', '4': '10' };
+            gradeLevel = yrMap[nextCell] || nextCell;
+          }
+        }
+
+        const joined = row.map(v => String(v ?? '').toUpperCase()).join('|');
+        if (joined.includes('NAME') && (joined.includes('FILIPINO') || joined.includes('ENGLISH') || joined.includes('MATH'))) {
+          headerRowIdx = r;
+          row.forEach((cellVal, idx) => {
+            const h = String(cellVal ?? '').trim().toUpperCase().replace(/\s+/g, ' ');
+            if (h === 'NAME' || h.includes('NAME OF STUDENT')) colMap.name = idx;
+            else if (h.includes('FILIPINO')) colMap.fil = idx;
+            else if (h.includes('ENGLISH')) colMap.eng = idx;
+            else if (h.includes('MATH')) colMap.math = idx;
+            else if (h.includes('SCIENCE')) colMap.sci = idx;
+            else if (h.includes('ARAL') || h.includes('ARAPAN') || h === 'AP') colMap.ap = idx;
+            else if (h.includes('EDUKASYON') || h === 'ESP' || h === 'GMRC' || h.includes('VALUES')) colMap.esp = idx;
+            else if (h.includes('TLE') || h.includes('TECH') || h.includes('COMP')) colMap.tle = idx;
+            else if (h === 'MAPEH') colMap.mapeh = idx;
+            else if (h.includes('GEN') && h.includes('AVE')) colMap.genAve = idx;
+            else if (h === 'SECTION') colMap.section = idx;
+          });
+          break;
+        }
+      }
+
+      if (!section) {
+        const clean = fileName.replace(/\.[^/.]+$/, '').replace(/^\d+\s*[-_]?\s*/, '').trim();
+        section = clean || 'SECTION';
+      }
+
+      const baseSubjIdx = colMap.fil ?? (colMap.eng !== undefined ? colMap.eng - 1 : 2);
+
+      const students = [];
+      const startRow = headerRowIdx >= 0 ? headerRowIdx + 1 : 0;
+
+      for (let r = startRow; r < matrix.length; r++) {
+        const row = matrix[r] || [];
+        const nameIdx = colMap.name ?? 1;
+        const rawName = String(row[nameIdx] ?? '').trim();
+        if (!rawName || /^(prepared by|noted by|total|average|no|name)/i.test(rawName)) continue;
+
+        const gIndices = [
+          colMap.fil ?? baseSubjIdx,
+          colMap.eng ?? baseSubjIdx + 1,
+          colMap.math ?? baseSubjIdx + 2,
+          colMap.sci ?? baseSubjIdx + 3,
+          colMap.ap ?? baseSubjIdx + 4,
+          colMap.esp ?? baseSubjIdx + 5,
+          colMap.tle ?? baseSubjIdx + 6,
+          colMap.mapeh ?? baseSubjIdx + 7
+        ];
+        const grades = gIndices.map(idx => parseFloat(row[idx]) || 0);
+        if (grades.every(g => g === 0)) continue;
+
+        const sheetGenAve = colMap.genAve !== undefined && row[colMap.genAve] !== ''
+          ? parseFloat(row[colMap.genAve])
+          : null;
+
+        const rowSec = colMap.section !== undefined && row[colMap.section]
+          ? String(row[colMap.section]).trim().toUpperCase()
+          : section.toUpperCase();
+
+        students.push({
+          name: rawName,
+          section: rowSec,
+          grades,
+          sheetGenAve
+        });
+      }
+
+      return { section: section.toUpperCase(), period, quarter, gradeLevel, students };
+    }
+
+    function classifyHonor(avg) {
+      if (avg >= 98) return 'WITH HIGHEST HONORS';
+      if (avg >= 95) return 'WITH HIGH HONORS';
+      if (avg >= 89.5) return 'WITH HONORS';
+      return 'NOT INCLUDED';
+    }
+
+    function recomputeAndRender() {
+      const basis = document.getElementById('avg-basis').value;
+      const secFilter = document.getElementById('section-filter').value;
+      const searchQuery = document.getElementById('search-input').value.trim().toLowerCase();
+      const tierFilter = document.getElementById('honor-tier-filter').value;
+
+      const computed = allStudents
+        .filter(s => secFilter === 'ALL' || s.section === secFilter)
+        .map(s => {
+          const avg8 = s.grades.reduce((a, b) => a + b, 0) / s.grades.length;
+          const activeAvg = (basis === 'sheetCol' && s.sheetGenAve !== null && !isNaN(s.sheetGenAve))
+            ? s.sheetGenAve
+            : avg8;
+          const exactAvg = Math.round(activeAvg * 1000) / 1000;
+          const roundedGenAve = Math.round(exactAvg);
+          const remarks = classifyHonor(exactAvg);
+          return {
+            ...s,
+            avg8: Math.round(avg8 * 1000) / 1000,
+            activeAvg: exactAvg,
+            roundedGenAve,
+            remarks
+          };
+        });
+
+      const allIncluded = computed
+        .filter(s => s.remarks !== 'NOT INCLUDED')
+        .sort((a, b) => b.activeAvg - a.activeAvg || a.name.localeCompare(b.name));
+
+      let currentRank = 0;
+      let prevScore = null;
+      allIncluded.forEach((st) => {
+        if (prevScore === null || st.activeAvg < prevScore) {
+          currentRank += 1;
+          prevScore = st.activeAvg;
+        }
+        st.rank = currentRank;
+      });
+
+      const allExcluded = computed
+        .filter(s => s.remarks === 'NOT INCLUDED')
+        .sort((a, b) => b.activeAvg - a.activeAvg || a.name.localeCompare(b.name));
+
+      includedList = allIncluded;
+      excludedList = allExcluded;
+
+      document.getElementById('kpi-total').textContent = computed.length;
+      document.getElementById('kpi-included').textContent = allIncluded.length;
+      document.getElementById('kpi-highest').textContent = allIncluded.filter(s => s.remarks === 'WITH HIGHEST HONORS').length;
+      document.getElementById('kpi-high').textContent = allIncluded.filter(s => s.remarks === 'WITH HIGH HONORS').length;
+      document.getElementById('kpi-honors').textContent = allIncluded.filter(s => s.remarks === 'WITH HONORS').length;
+      document.getElementById('kpi-not-included').textContent = allExcluded.length;
+
+      document.getElementById('badge-included').textContent = allIncluded.length;
+      document.getElementById('badge-excluded').textContent = allExcluded.length;
+
+      const visibleIncluded = allIncluded.filter(s => {
+        const matchSearch = !searchQuery || s.name.toLowerCase().includes(searchQuery) || s.section.toLowerCase().includes(searchQuery);
+        const matchTier = tierFilter === 'ALL' || s.remarks === tierFilter;
+        return matchSearch && matchTier;
+      });
+
+      const visibleExcluded = allExcluded.filter(s => {
+        return !searchQuery || s.name.toLowerCase().includes(searchQuery) || s.section.toLowerCase().includes(searchQuery);
+      });
+
+      renderIncludedTable(visibleIncluded);
+      renderExcludedTable(visibleExcluded);
+      renderOfficialPrintSheet(allIncluded);
+      populateCertStudentDropdown(allIncluded);
+    }
+
+    function renderIncludedTable(list) {
+      const tbody = document.getElementById('tbody-included');
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="15" class="py-10 text-center text-slate-400 text-sm">No honor students loaded yet. Upload your section Excel files or click <strong>"Load Sample (Tanguile &amp; Talisay)"</strong> above.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map((st) => {
+        const badgeStyle = st.remarks === 'WITH HIGHEST HONORS'
+          ? 'bg-amber-100 text-amber-900 border-amber-300'
+          : st.remarks === 'WITH HIGH HONORS'
+          ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+          : 'bg-sky-100 text-sky-900 border-sky-300';
+
+        const realIndex = includedList.indexOf(st);
+
+        return `
+          <tr class="hover:bg-emerald-50/40 transition">
+            <td class="py-2.5 px-3 text-center font-bold text-slate-700">${st.rank}</td>
+            <td class="py-2.5 px-3 font-semibold text-slate-900">${escapeHtml(st.name)}</td>
+            <td class="py-2.5 px-3 text-xs font-bold text-slate-600">${escapeHtml(st.section)}</td>
+            ${st.grades.map(g => `<td class="py-2.5 px-2 text-center text-xs text-slate-700">${g}</td>`).join('')}
+            <td class="py-2.5 px-3 text-center text-xs font-medium text-slate-600">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-emerald-800">${st.roundedGenAve}</td>
+            <td class="py-2.5 px-3">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${badgeStyle}">${st.remarks}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center">
+              <button onclick="openCertificateForStudent(${realIndex})" class="px-2.5 py-1 rounded-md bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 text-xs font-semibold transition">
+                🎓 Certificate
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderExcludedTable(list) {
+      const tbody = document.getElementById('tbody-excluded');
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="14" class="py-10 text-center text-slate-400 text-sm">No non-honor students to display.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map((st, idx) => {
+        const gap = Math.max(0, 89.5 - st.activeAvg).toFixed(3);
+        return `
+          <tr class="hover:bg-rose-50/40 transition">
+            <td class="py-2.5 px-3 text-center font-medium text-slate-500">${idx + 1}</td>
+            <td class="py-2.5 px-3 font-medium text-slate-900">${escapeHtml(st.name)}</td>
+            <td class="py-2.5 px-3 text-xs font-semibold text-slate-600">${escapeHtml(st.section)}</td>
+            ${st.grades.map(g => `<td class="py-2.5 px-2 text-center text-xs text-slate-600">${g}</td>`).join('')}
+            <td class="py-2.5 px-3 text-center text-xs text-slate-600">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-slate-800">${st.roundedGenAve}</td>
+            <td class="py-2.5 px-3 text-center text-xs font-semibold text-rose-600">-${gap}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderOfficialPrintSheet(list) {
+      const tbody = document.getElementById('official-tbody');
+      if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="14" class="text-center py-6 text-gray-500">Upload section files or load sample data to populate the official printed list.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(st => `
+        <tr>
+          <td class="text-center font-semibold">${st.rank}</td>
+          <td class="font-semibold">${escapeHtml(st.name)}</td>
+          ${st.grades.map(g => `<td class="text-center">${g}</td>`).join('')}
+          <td class="text-center font-semibold">${formatNumber(st.activeAvg)}</td>
+          <td class="text-center font-bold">${st.roundedGenAve}</td>
+          <td class="text-center font-bold">${st.remarks}</td>
+          <td class="text-center font-semibold">${escapeHtml(st.section)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function populateCertStudentDropdown(list) {
+      const select = document.getElementById('cert-student-select');
+      if (!list.length) {
+        select.innerHTML = `<option value="-1">Default Template (Joannah Faye V. Nadala)</option>`;
+        return;
+      }
+      if (currentCertIndex >= list.length) currentCertIndex = 0;
+
+      select.innerHTML = list.map((st, idx) =>
+        `<option value="${idx}" ${idx === currentCertIndex ? 'selected' : ''}>#${st.rank} — ${st.name} (Gen. Ave.: ${st.roundedGenAve})</option>`
+      ).join('');
+
+      applyStudentToCertificate(list[currentCertIndex]);
+    }
+
+    function selectCertStudentByIndex(idxStr) {
+      const idx = parseInt(idxStr, 10);
+      if (!isNaN(idx) && includedList[idx]) {
+        currentCertIndex = idx;
+        applyStudentToCertificate(includedList[idx]);
+      }
+    }
+
+    function prevCertStudent() {
+      if (!includedList.length) return;
+      currentCertIndex = (currentCertIndex - 1 + includedList.length) % includedList.length;
+      document.getElementById('cert-student-select').value = currentCertIndex;
+      applyStudentToCertificate(includedList[currentCertIndex]);
+    }
+
+    function nextCertStudent() {
+      if (!includedList.length) return;
+      currentCertIndex = (currentCertIndex + 1) % includedList.length;
+      document.getElementById('cert-student-select').value = currentCertIndex;
+      applyStudentToCertificate(includedList[currentCertIndex]);
+    }
+
+    function openCertificateForStudent(idx) {
+      if (!includedList[idx]) return;
+      currentCertIndex = idx;
+      switchTab('certificate');
+      document.getElementById('cert-student-select').value = idx;
+      applyStudentToCertificate(includedList[idx]);
+    }
+
+    function formatNameForCertificate(rawName) {
+      let full = rawName;
+      if (rawName.includes(',')) {
+        const parts = rawName.split(',');
+        const last = titleCaseName(parts[0].trim());
+        const rest = titleCaseName(parts.slice(1).join(' ').trim());
+        full = `${rest} ${last}`.trim();
+      } else {
+        full = titleCaseName(rawName);
+      }
+      return escapeHtml(full).replace(/\b(II|III|IV|V|VI)\b/g, '<span class="cert-roman-suffix">$1</span>');
+    }
+
+    function titleCaseName(str) {
+      return str
+        .toLowerCase()
+        .replace(/(^|\s|[-.])([a-zñáéíóúü])/g, (_, sep, ch) => sep + ch.toUpperCase())
+        .replace(/\b(ii|iii|iv|v|vi)\b/gi, (m) => m.toUpperCase())
+        .replace(/\b(jr|sr)\.?\b/gi, (m) => m.charAt(0).toUpperCase() + m.slice(1).toLowerCase().replace('.', '') + '.');
+    }
+
+    function fitRecipientNameFont(el, text) {
+      const val = (text || el.textContent || '').trim();
+      const len = val.length;
+      let size = 78;
+      if (len > 36) size = 48;
+      else if (len > 32) size = 54;
+      else if (len > 28) size = 60;
+      else if (len > 24) size = 66;
+      else if (len > 21) size = 72;
+
+      el.style.fontSize = size + 'px';
+
+      if (el.offsetWidth > 0) {
+        while (el.scrollWidth > 890 && size > 40) {
+          size -= 2;
+          el.style.fontSize = size + 'px';
+        }
+      }
+    }
+
+    function formatHonorScriptTitle(remarks) {
+      if (remarks === 'WITH HIGHEST HONORS') return 'With Highest Honors';
+      if (remarks === 'WITH HIGH HONORS') return 'With High Honors';
+      return 'With Honors';
+    }
+
+    function formatCertAverage(val) {
+      const mode = document.getElementById('ctrl-avg-format').value;
+      if (mode === 'round') return Math.round(val).toString();
+      if (mode === '2dec') return val.toFixed(2);
+      return formatNumber(val);
+    }
+
+    function getAdviserForSection(sectionName) {
+      const autoMatch = document.getElementById('ctrl-auto-adviser').checked;
+      const manualAdv = document.getElementById('ctrl-adviser').value;
+      if (!autoMatch) return manualAdv;
+
+      const secUpper = (sectionName || '').toUpperCase();
+      if (secUpper.includes('TALISAY')) {
+        return document.getElementById('sig-adv-1-name').textContent.trim().toUpperCase();
+      }
+      if (secUpper.includes('TANGUILE')) {
+        return document.getElementById('sig-adv-2-name').textContent.trim().toUpperCase();
+      }
+      return manualAdv;
+    }
+
+    function applyStudentToCertificate(st) {
+      if (!st) return;
+      const nameEl = document.getElementById('cert-recipient-name');
+      const formattedName = formatNameForCertificate(st.name);
+      nameEl.innerHTML = formattedName;
+      fitRecipientNameFont(nameEl, nameEl.textContent);
+
+      document.getElementById('cert-honor-tier').textContent = formatHonorScriptTitle(st.remarks);
+      document.getElementById('cert-section').textContent = titleCaseName(st.section);
+      document.getElementById('cert-average').textContent = formatCertAverage(st.activeAvg);
+      document.getElementById('cert-adviser-name').textContent = getAdviserForSection(st.section);
+      syncCertFromControls(false);
+    }
+
+    function syncCertFromControls(refreshStudent = true) {
+      document.getElementById('cert-grade').textContent = document.getElementById('ctrl-grade').value;
+      document.getElementById('cert-sy').textContent = document.getElementById('ctrl-sy').value;
+      document.getElementById('cert-principal-name').textContent = document.getElementById('ctrl-principal').value;
+
+      const qVal = document.getElementById('ctrl-quarter').value.trim();
+      const qHtml = qVal.replace(/^(\d+)(st|nd|rd|th)$/i, '$1<sup>$2</sup>');
+      document.getElementById('cert-quarter').innerHTML = qHtml;
+
+      const dateVal = document.getElementById('ctrl-award-date').value.trim();
+      const dateHtml = dateVal.replace(/\b(\d+)(st|nd|rd|th)\b/gi, '$1<sup>$2</sup>');
+      document.getElementById('cert-award-date').innerHTML = dateHtml;
+
+      if (refreshStudent) {
+        if (includedList[currentCertIndex]) {
+          const st = includedList[currentCertIndex];
+          document.getElementById('cert-average').textContent = formatCertAverage(st.activeAvg);
+          document.getElementById('cert-adviser-name').textContent = getAdviserForSection(st.section);
+        } else {
+          document.getElementById('cert-adviser-name').textContent = document.getElementById('ctrl-adviser').value;
+        }
+      }
+    }
+
+    function uploadCustomSeal(event) {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.getElementById('custom-seal-img');
+        img.src = e.target.result;
+        img.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function buildCertificateCloneForStudent(template, st) {
+      const clone = template.cloneNode(true);
+      const cloneNameEl = clone.querySelector('[data-field="name"]');
+      if (st) {
+        const formattedName = formatNameForCertificate(st.name);
+        cloneNameEl.innerHTML = formattedName;
+        fitRecipientNameFont(cloneNameEl, cloneNameEl.textContent);
+
+        clone.querySelector('[data-field="honor"]').textContent = formatHonorScriptTitle(st.remarks);
+        clone.querySelector('[data-field="section"]').textContent = titleCaseName(st.section);
+        clone.querySelector('[data-field="average"]').textContent = formatCertAverage(st.activeAvg);
+        clone.querySelector('[data-field="adviser"]').textContent = getAdviserForSection(st.section);
+      } else {
+        fitRecipientNameFont(cloneNameEl, cloneNameEl.textContent);
+      }
+      clone.removeAttribute('id');
+      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      return clone;
+    }
+
+    function cleanupAfterPrint() {
+      document.body.classList.remove('printing-cert');
+      document.getElementById('cert-print-staging').innerHTML = '';
+    }
+    window.addEventListener('afterprint', cleanupAfterPrint);
+
+    function printSingleCertificate() {
+      const staging = document.getElementById('cert-print-staging');
+      const template = document.getElementById('active-certificate');
+
+      const sheet = document.createElement('div');
+      sheet.className = 'letter-portrait-sheet';
+
+      const topSlot = document.createElement('div');
+      topSlot.className = 'cert-half-slot';
+      topSlot.appendChild(buildCertificateCloneForStudent(template, null));
+      sheet.appendChild(topSlot);
+
+      const bottomSlot = document.createElement('div');
+      bottomSlot.className = 'cert-half-slot';
+      if (includedList.length > 1 && includedList[currentCertIndex + 1]) {
+        bottomSlot.appendChild(buildCertificateCloneForStudent(template, includedList[currentCertIndex + 1]));
+      }
+      sheet.appendChild(bottomSlot);
+
+      staging.innerHTML = '';
+      staging.appendChild(sheet);
+
+      document.body.classList.add('printing-cert');
+      requestAnimationFrame(() => {
+        staging.querySelectorAll('[data-field="name"]').forEach(el => fitRecipientNameFont(el));
+        requestAnimationFrame(() => window.print());
+      });
+    }
+
+    function printAllCertificates() {
+      if (!includedList.length) {
+        alert('No honor students available to print certificates.');
+        return;
+      }
+      const staging = document.getElementById('cert-print-staging');
+      const template = document.getElementById('active-certificate');
+      const frag = document.createDocumentFragment();
+
+      for (let i = 0; i < includedList.length; i += 2) {
+        const sheet = document.createElement('div');
+        sheet.className = 'letter-portrait-sheet';
+
+        const topSlot = document.createElement('div');
+        topSlot.className = 'cert-half-slot';
+        topSlot.appendChild(buildCertificateCloneForStudent(template, includedList[i]));
+        sheet.appendChild(topSlot);
+
+        const bottomSlot = document.createElement('div');
+        bottomSlot.className = 'cert-half-slot';
+        if (includedList[i + 1]) {
+          bottomSlot.appendChild(buildCertificateCloneForStudent(template, includedList[i + 1]));
+        }
+        sheet.appendChild(bottomSlot);
+
+        frag.appendChild(sheet);
+      }
+
+      staging.innerHTML = '';
+      staging.appendChild(frag);
+
+      document.body.classList.add('printing-cert');
+      requestAnimationFrame(() => {
+        staging.querySelectorAll('[data-field="name"]').forEach(el => fitRecipientNameFont(el));
+        requestAnimationFrame(() => window.print());
+      });
+    }
+
+    function printOfficialSummary() {
+      cleanupAfterPrint();
+      switchTab('printsheet');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => window.print());
+      });
+    }
+
+    function exportOfficialExcel() {
+      if (!includedList.length) {
+        alert('No honor students to export.');
+        return;
+      }
+      const schoolName = document.getElementById('sheet-school-name').textContent.trim();
+      const schoolCity = document.getElementById('sheet-school-city').textContent.trim();
+      const gradeTitle = document.getElementById('sheet-grade-title').textContent.trim();
+      const gradingPeriod = document.getElementById('sheet-grading-period').textContent.trim();
+      const sy = document.getElementById('sheet-school-year').textContent.trim();
+
+      const aoa = [
+        ['', schoolName, '', '', '', '', '', '', '', '', gradeTitle, '', '', ''],
+        ['', schoolCity, '', '', '', '', '', '', '', '', gradingPeriod, '', '', ''],
+        ['', '', '', '', '', '', '', '', '', '', sy, '', '', ''],
+        [],
+        ['No', 'NAME OF STUDENTS', 'FILIPINO', 'ENGLISH', 'MATHEMATICS', 'SCIENCE', 'ARAL. PAN.', 'ESP', 'TLE/COMP.', 'MAPEH', 'AVERAGE', 'GEN. AVE.', 'REMARKS', 'SECTION']
+      ];
+
+      includedList.forEach(st => {
+        aoa.push([
+          st.rank,
+          st.name,
+          ...st.grades,
+          st.activeAvg,
+          st.roundedGenAve,
+          st.remarks,
+          st.section
+        ]);
+      });
+
+      aoa.push([]);
+      aoa.push(['', 'PREPARED BY:']);
+      aoa.push(['', '', document.getElementById('sig-adv-1-name').textContent.trim(), '', '', '', '', '', '', '', document.getElementById('sig-adv-2-name').textContent.trim()]);
+      aoa.push(['', '', document.getElementById('sig-adv-1-role').textContent.trim(), '', '', '', '', '', '', '', document.getElementById('sig-adv-2-role').textContent.trim()]);
+      aoa.push([]);
+      aoa.push(['', 'NOTED BY:']);
+      aoa.push(['', '', document.getElementById('sig-coord-name').textContent.trim(), '', '', '', '', '', '', '', document.getElementById('sig-prin-name').textContent.trim()]);
+      aoa.push(['', '', document.getElementById('sig-coord-role').textContent.trim(), '', '', '', '', '', '', '', document.getElementById('sig-prin-role').textContent.trim()]);
+
+      const ws = XLSX.utils.aoa_to_sheet(aoa);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, 'HONORS LIST');
+      XLSX.writeFile(wb, 'Honors_List.xlsx');
+    }
+
+    function switchTab(tabName) {
+      const tabs = ['included', 'excluded', 'printsheet', 'certificate'];
+      tabs.forEach(t => {
+        const panel = document.getElementById('panel-' + t);
+        const btn = document.getElementById('tab-btn-' + t);
+        if (t === tabName) {
+          panel.classList.remove('hidden');
+          btn.classList.add('tab-active');
+          btn.classList.remove('text-slate-600');
+        } else {
+          panel.classList.add('hidden');
+          btn.classList.remove('tab-active');
+          btn.classList.add('text-slate-600');
+        }
+      });
+    }
+
+    function updateSectionFilterOptions() {
+      const select = document.getElementById('section-filter');
+      const sections = [...new Set(allStudents.map(s => s.section))].sort();
+      select.innerHTML = `<option value="ALL">All Sections Combined (${sections.length})</option>` +
+        sections.map(sec => `<option value="${sec}">${sec}</option>`).join('');
+    }
+
+    function renderFileBadges() {
+      const container = document.getElementById('uploaded-files-badges');
+      const entries = Object.entries(uploadedSections);
+      if (!entries.length) {
+        container.innerHTML = '';
+        return;
+      }
+      container.innerHTML = entries.map(([sec, info]) => `
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300">
+          <span>📄 ${escapeHtml(info.fileName)}</span>
+          <span class="text-emerald-700">(${sec}: ${info.count} students)</span>
+          <button onclick="removeSection('${sec}')" class="ml-1 text-emerald-700 hover:text-rose-700 font-bold" title="Remove section">×</button>
+        </span>
+      `).join('');
+    }
+
+    function removeSection(sec) {
+      delete uploadedSections[sec];
+      allStudents = allStudents.filter(s => s.section !== sec);
+      updateSectionFilterOptions();
+      renderFileBadges();
+      recomputeAndRender();
+    }
+
+    function loadBuiltInSampleData() {
+      allStudents = SAMPLE_DATA.map(s => ({ ...s, grades: [...s.grades] }));
+      uploadedSections = {
+        TANGUILE: { fileName: '10 Tanguile.xlsx (Sample)', count: 42 },
+        TALISAY: { fileName: '10 Talisay.xlsx (Sample)', count: 38 }
+      };
+      document.getElementById('sheet-grade-title').textContent = 'GRADE 10 TOP STUDENTS';
+      document.getElementById('ctrl-grade').value = '10';
+      document.getElementById('ctrl-quarter').value = '2nd';
+      document.getElementById('ctrl-auto-adviser').checked = true;
+      updateSectionFilterOptions();
+      renderFileBadges();
+      recomputeAndRender();
+    }
+
+    function clearAllData() {
+      allStudents = [];
+      uploadedSections = {};
+      includedList = [];
+      excludedList = [];
+      currentCertIndex = 0;
+      updateSectionFilterOptions();
+      renderFileBadges();
+      recomputeAndRender();
+    }
+
+    function formatNumber(num) {
+      return Number(num.toFixed(3)).toString();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    recomputeAndRender();
+  </script>
+</body>
+</html>
