@@ -263,8 +263,8 @@
               <svg class="w-8 h-8 text-emerald-700 mb-1.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0l-4 4m4-4l4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"/>
               </svg>
-              <span class="text-sm font-semibold text-slate-800">Upload Section Excel/CSV Files (Select Both Sections Together or One-by-One)</span>
-              <span class="text-xs text-slate-500 mt-0.5">Supports .xlsx, .xls, .csv (e.g., 10 Tanguile.xlsx &amp; 10 Talisay.xlsx)</span>
+              <span class="text-sm font-semibold text-slate-800">Upload Section Excel/CSV Files (Select Sections Together or One-by-One)</span>
+              <span class="text-xs text-slate-500 mt-0.5">Supports .xlsx, .xls, .csv (Grade 7–10 Consolidated Grades: ARAPAN / ARAL. PAN., GMRC / ESP, etc.)</span>
               <input id="file-input" type="file" accept=".xlsx,.xls,.csv" multiple class="hidden" />
             </label>
             <div id="uploaded-files-badges" class="flex flex-wrap gap-2 mt-2.5"></div>
@@ -295,10 +295,10 @@
 
             <div class="flex flex-wrap items-center justify-between gap-3 bg-slate-50 rounded-lg px-3.5 py-2.5 border border-slate-200/80">
               <div class="flex items-center gap-2">
-                <label for="avg-basis" class="text-xs font-semibold text-slate-700">General Average Basis:</label>
+                <label for="avg-basis" class="text-xs font-semibold text-slate-700">Average Basis:</label>
                 <select id="avg-basis" onchange="recomputeAndRender()" class="text-xs bg-white border border-slate-300 rounded-md px-2.5 py-1.5 font-medium text-slate-800 focus:outline-none focus:border-emerald-600">
                   <option value="8subj">8 Core Subjects Mean (Matches Honors Sheet)</option>
-                  <option value="sheetCol">Sheet "Gen. Ave." Column (Col Q)</option>
+                  <option value="sheetCol">Sheet "Gen. Ave." Column (If Present)</option>
                 </select>
               </div>
               <div class="flex items-center gap-2">
@@ -367,7 +367,7 @@
         <div class="p-4 bg-emerald-50/70 border-b border-emerald-100 flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 class="text-base font-bold text-emerald-950">Included Honor Students (Highest to Lowest)</h2>
-            <p class="text-xs text-emerald-800">Automatically ranked from highest General Average to lowest (89.50 and above).</p>
+            <p class="text-xs text-emerald-800">Automatically ranked from highest Average to lowest (89.50 and above), with Gen. Ave. rounded off.</p>
           </div>
           <div class="flex items-center gap-2">
             <select id="honor-tier-filter" onchange="recomputeAndRender()" class="text-xs bg-white border border-emerald-300 rounded-lg px-2.5 py-1.5 font-medium text-emerald-950">
@@ -393,9 +393,10 @@
                 <th class="py-3 px-2 text-center">Math</th>
                 <th class="py-3 px-2 text-center">Sci</th>
                 <th class="py-3 px-2 text-center">AP</th>
-                <th class="py-3 px-2 text-center">EsP</th>
+                <th class="py-3 px-2 text-center">EsP/GMRC</th>
                 <th class="py-3 px-2 text-center">TLE</th>
                 <th class="py-3 px-2 text-center">MAPEH</th>
+                <th class="py-3 px-3 text-center">Average</th>
                 <th class="py-3 px-3 text-center font-bold">Gen. Ave.</th>
                 <th class="py-3 px-3">Remarks</th>
                 <th class="py-3 px-3 text-center">Certificate</th>
@@ -411,7 +412,7 @@
         <div class="p-4 bg-rose-50/70 border-b border-rose-100 flex flex-wrap items-center justify-between gap-2">
           <div>
             <h2 class="text-base font-bold text-rose-950">Not Included Students (Highest to Lowest)</h2>
-            <p class="text-xs text-rose-800">Students with General Average below 89.50, ordered from highest to lowest with points needed to reach 89.50.</p>
+            <p class="text-xs text-rose-800">Students with Average below 89.50, ordered from highest to lowest with points needed to reach 89.50.</p>
           </div>
         </div>
         <div class="overflow-x-auto">
@@ -426,9 +427,10 @@
                 <th class="py-3 px-2 text-center">Math</th>
                 <th class="py-3 px-2 text-center">Sci</th>
                 <th class="py-3 px-2 text-center">AP</th>
-                <th class="py-3 px-2 text-center">EsP</th>
+                <th class="py-3 px-2 text-center">EsP/GMRC</th>
                 <th class="py-3 px-2 text-center">TLE</th>
                 <th class="py-3 px-2 text-center">MAPEH</th>
+                <th class="py-3 px-3 text-center">Average</th>
                 <th class="py-3 px-3 text-center font-bold">Gen. Ave.</th>
                 <th class="py-3 px-3 text-center">Gap to 89.50</th>
               </tr>
@@ -541,7 +543,7 @@
             </div>
             <div>
               <label class="block font-semibold text-slate-600 mb-1">Quarter</label>
-              <input id="ctrl-quarter" type="text" value="1st" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
+              <input id="ctrl-quarter" type="text" value="2nd" oninput="syncCertFromControls()" class="w-full border border-slate-300 rounded-md px-2.5 py-1.5 bg-white" />
             </div>
             <div>
               <label class="block font-semibold text-slate-600 mb-1">School Year</label>
@@ -687,7 +689,7 @@
                     Section <span contenteditable="true" id="cert-section" data-field="section" class="cert-blank-line min-w-[165px]">Gemelina</span>
                     has obtained a General<br/>
                     Average of <span contenteditable="true" id="cert-average" data-field="average" class="cert-blank-line min-w-[74px]">93</span>
-                    in the <span contenteditable="true" id="cert-quarter" class="font-bold">1<sup>st</sup></span> Quarter,
+                    in the <span contenteditable="true" id="cert-quarter" class="font-bold">2<sup>nd</sup></span> Quarter,
                     S.Y. <span contenteditable="true" id="cert-sy" class="font-bold">2026-2027</span>.
                   </div>
 
@@ -847,6 +849,10 @@
               period: parsed.period || '',
               quarter: parsed.quarter || ''
             };
+            if (parsed.gradeLevel) {
+              document.getElementById('sheet-grade-title').textContent = 'GRADE ' + parsed.gradeLevel + ' TOP STUDENTS';
+              document.getElementById('ctrl-grade').value = parsed.gradeLevel;
+            }
             if (parsed.quarter) {
               document.getElementById('sheet-grading-period').textContent = parsed.quarter.toUpperCase() + ' GRADING PERIOD';
               const qMatch = parsed.quarter.match(/(\d+(?:st|nd|rd|th))/i);
@@ -940,6 +946,7 @@
       let section = '';
       let period = '';
       let quarter = '';
+      let gradeLevel = '';
       let headerRowIdx = -1;
       let colMap = {};
 
@@ -951,20 +958,24 @@
           if (/^section$/i.test(cell) && nextCell) section = nextCell;
           if (/^period$/i.test(cell) && nextCell) period = nextCell;
           if (/^terms?$/i.test(cell) && nextCell) quarter = nextCell;
+          if (/^year$/i.test(cell) && nextCell) {
+            const yrMap = { '1': '7', '2': '8', '3': '9', '4': '10' };
+            gradeLevel = yrMap[nextCell] || nextCell;
+          }
         }
 
         const joined = row.map(v => String(v ?? '').toUpperCase()).join('|');
-        if (joined.includes('NAME') && (joined.includes('FILIPINO') || joined.includes('ENGLISH') || joined.includes('GEN'))) {
+        if (joined.includes('NAME') && (joined.includes('FILIPINO') || joined.includes('ENGLISH') || joined.includes('MATH'))) {
           headerRowIdx = r;
           row.forEach((cellVal, idx) => {
-            const h = String(cellVal ?? '').trim().toUpperCase();
+            const h = String(cellVal ?? '').trim().toUpperCase().replace(/\s+/g, ' ');
             if (h === 'NAME' || h.includes('NAME OF STUDENT')) colMap.name = idx;
             else if (h.includes('FILIPINO')) colMap.fil = idx;
             else if (h.includes('ENGLISH')) colMap.eng = idx;
             else if (h.includes('MATH')) colMap.math = idx;
             else if (h.includes('SCIENCE')) colMap.sci = idx;
-            else if (h.includes('ARAL') || h === 'AP') colMap.ap = idx;
-            else if (h.includes('EDUKASYON') || h === 'ESP') colMap.esp = idx;
+            else if (h.includes('ARAL') || h.includes('ARAPAN') || h === 'AP') colMap.ap = idx;
+            else if (h.includes('EDUKASYON') || h === 'ESP' || h === 'GMRC' || h.includes('VALUES')) colMap.esp = idx;
             else if (h.includes('TLE') || h.includes('TECH') || h.includes('COMP')) colMap.tle = idx;
             else if (h === 'MAPEH') colMap.mapeh = idx;
             else if (h.includes('GEN') && h.includes('AVE')) colMap.genAve = idx;
@@ -979,6 +990,9 @@
         section = clean || 'SECTION';
       }
 
+      // Dynamic column anchor based on detected Filipino/English column (handles both Grade 7 and Grade 10 layouts)
+      const baseSubjIdx = colMap.fil ?? (colMap.eng !== undefined ? colMap.eng - 1 : 2);
+
       const students = [];
       const startRow = headerRowIdx >= 0 ? headerRowIdx + 1 : 0;
 
@@ -989,14 +1003,14 @@
         if (!rawName || /^(prepared by|noted by|total|average|no|name)/i.test(rawName)) continue;
 
         const gIndices = [
-          colMap.fil ?? 4,
-          colMap.eng ?? 5,
-          colMap.math ?? 6,
-          colMap.sci ?? 7,
-          colMap.ap ?? 8,
-          colMap.esp ?? 9,
-          colMap.tle ?? 10,
-          colMap.mapeh ?? 11
+          colMap.fil ?? baseSubjIdx,
+          colMap.eng ?? baseSubjIdx + 1,
+          colMap.math ?? baseSubjIdx + 2,
+          colMap.sci ?? baseSubjIdx + 3,
+          colMap.ap ?? baseSubjIdx + 4,
+          colMap.esp ?? baseSubjIdx + 5,
+          colMap.tle ?? baseSubjIdx + 6,
+          colMap.mapeh ?? baseSubjIdx + 7
         ];
         const grades = gIndices.map(idx => parseFloat(row[idx]) || 0);
         if (grades.every(g => g === 0)) continue;
@@ -1017,7 +1031,7 @@
         });
       }
 
-      return { section: section.toUpperCase(), period, quarter, students };
+      return { section: section.toUpperCase(), period, quarter, gradeLevel, students };
     }
 
     function classifyHonor(avg) {
@@ -1040,12 +1054,14 @@
           const activeAvg = (basis === 'sheetCol' && s.sheetGenAve !== null && !isNaN(s.sheetGenAve))
             ? s.sheetGenAve
             : avg8;
-          const rounded3 = Math.round(activeAvg * 1000) / 1000;
-          const remarks = classifyHonor(rounded3);
+          const exactAvg = Math.round(activeAvg * 1000) / 1000;
+          const roundedGenAve = Math.round(exactAvg);
+          const remarks = classifyHonor(exactAvg);
           return {
             ...s,
             avg8: Math.round(avg8 * 1000) / 1000,
-            activeAvg: rounded3,
+            activeAvg: exactAvg,
+            roundedGenAve,
             remarks
           };
         });
@@ -1100,7 +1116,7 @@
     function renderIncludedTable(list) {
       const tbody = document.getElementById('tbody-included');
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="14" class="py-10 text-center text-slate-400 text-sm">No honor students loaded yet. Upload your section Excel files or click <strong>"Load Sample (Tanguile &amp; Talisay)"</strong> above.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="15" class="py-10 text-center text-slate-400 text-sm">No honor students loaded yet. Upload your section Excel files or click <strong>"Load Sample (Tanguile &amp; Talisay)"</strong> above.</td></tr>`;
         return;
       }
 
@@ -1119,7 +1135,8 @@
             <td class="py-2.5 px-3 font-semibold text-slate-900">${escapeHtml(st.name)}</td>
             <td class="py-2.5 px-3 text-xs font-bold text-slate-600">${escapeHtml(st.section)}</td>
             ${st.grades.map(g => `<td class="py-2.5 px-2 text-center text-xs text-slate-700">${g}</td>`).join('')}
-            <td class="py-2.5 px-3 text-center font-bold text-emerald-800">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center text-xs font-medium text-slate-600">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-emerald-800">${st.roundedGenAve}</td>
             <td class="py-2.5 px-3">
               <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${badgeStyle}">${st.remarks}</span>
             </td>
@@ -1136,7 +1153,7 @@
     function renderExcludedTable(list) {
       const tbody = document.getElementById('tbody-excluded');
       if (!list.length) {
-        tbody.innerHTML = `<tr><td colspan="13" class="py-10 text-center text-slate-400 text-sm">No non-honor students to display.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="14" class="py-10 text-center text-slate-400 text-sm">No non-honor students to display.</td></tr>`;
         return;
       }
 
@@ -1148,7 +1165,8 @@
             <td class="py-2.5 px-3 font-medium text-slate-900">${escapeHtml(st.name)}</td>
             <td class="py-2.5 px-3 text-xs font-semibold text-slate-600">${escapeHtml(st.section)}</td>
             ${st.grades.map(g => `<td class="py-2.5 px-2 text-center text-xs text-slate-600">${g}</td>`).join('')}
-            <td class="py-2.5 px-3 text-center font-bold text-slate-800">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center text-xs text-slate-600">${formatNumber(st.activeAvg)}</td>
+            <td class="py-2.5 px-3 text-center font-bold text-slate-800">${st.roundedGenAve}</td>
             <td class="py-2.5 px-3 text-center text-xs font-semibold text-rose-600">-${gap}</td>
           </tr>
         `;
@@ -1168,7 +1186,7 @@
           <td class="font-semibold">${escapeHtml(st.name)}</td>
           ${st.grades.map(g => `<td class="text-center">${g}</td>`).join('')}
           <td class="text-center font-semibold">${formatNumber(st.activeAvg)}</td>
-          <td class="text-center font-semibold">${formatNumber(st.activeAvg)}</td>
+          <td class="text-center font-bold">${st.roundedGenAve}</td>
           <td class="text-center font-bold">${st.remarks}</td>
           <td class="text-center font-semibold">${escapeHtml(st.section)}</td>
         </tr>
@@ -1184,7 +1202,7 @@
       if (currentCertIndex >= list.length) currentCertIndex = 0;
 
       select.innerHTML = list.map((st, idx) =>
-        `<option value="${idx}" ${idx === currentCertIndex ? 'selected' : ''}>#${st.rank} — ${st.name} (${formatNumber(st.activeAvg)})</option>`
+        `<option value="${idx}" ${idx === currentCertIndex ? 'selected' : ''}>#${st.rank} — ${st.name} (Gen. Ave.: ${st.roundedGenAve})</option>`
       ).join('');
 
       applyStudentToCertificate(list[currentCertIndex]);
@@ -1230,12 +1248,10 @@
       return titleCaseName(rawName);
     }
 
-    // Accent-safe Title Case (fixes "Españo" so ñ doesn't capitalize the next letter)
     function titleCaseName(str) {
       return str.toLowerCase().replace(/(^|\s|[-.])([a-zñáéíóúü])/g, (_, sep, ch) => sep + ch.toUpperCase());
     }
 
-    // Auto-scales font size both by character count and exact pixel width so 1 line is guaranteed
     function fitRecipientNameFont(el, text) {
       const val = (text || el.textContent || '').trim();
       const len = val.length;
@@ -1248,7 +1264,6 @@
 
       el.style.fontSize = size + 'px';
 
-      // Fine-tune pixel width if mounted in DOM
       if (el.offsetWidth > 0) {
         while (el.scrollWidth > 890 && size > 40) {
           size -= 2;
@@ -1461,7 +1476,7 @@
           st.name,
           ...st.grades,
           st.activeAvg,
-          st.activeAvg,
+          st.roundedGenAve,
           st.remarks,
           st.section
         ]);
@@ -1479,7 +1494,7 @@
       const ws = XLSX.utils.aoa_to_sheet(aoa);
       const wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'HONORS LIST');
-      XLSX.writeFile(wb, 'Grade_10_Honors_List.xlsx');
+      XLSX.writeFile(wb, 'Honors_List.xlsx');
     }
 
     function switchTab(tabName) {
@@ -1536,6 +1551,7 @@
         TANGUILE: { fileName: '10 Tanguile.xlsx (Sample)', count: 42 },
         TALISAY: { fileName: '10 Talisay.xlsx (Sample)', count: 38 }
       };
+      document.getElementById('sheet-grade-title').textContent = 'GRADE 10 TOP STUDENTS';
       document.getElementById('ctrl-grade').value = '10';
       document.getElementById('ctrl-quarter').value = '2nd';
       document.getElementById('ctrl-auto-adviser').checked = true;
